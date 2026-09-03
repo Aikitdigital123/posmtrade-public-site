@@ -2,7 +2,7 @@
 
 ## Účel
 
-Tento repozitář je výhradně veřejný statický web POSMTRADE. Slouží jako obecná prezentace služby a jako veřejný zdroj domovské stránky, zásad ochrany soukromí a podmínek používání pro Google OAuth. Výchozí jazyk je angličtina, doplněná o českou a ukrajinskou verzi.
+Tento repozitář je výhradně veřejný statický web POSMTRADE. Slouží jako obecná prezentace služby a jako veřejný zdroj domovské stránky, zásad ochrany soukromí a podmínek používání pro Google OAuth. Výchozí jazyk je ukrajinština, doplněná o českou a anglickou verzi.
 
 Web bude použit při přechodu Google OAuth z režimu Testing do Production, aby platnost autorizace používané služby nebyla omezena týdenním testovacím režimem. Po přechodu se počítá s jedním novým udělením souhlasu.
 

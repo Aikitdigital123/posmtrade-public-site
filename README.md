@@ -1,6 +1,6 @@
 # POSMTRADE – veřejný web
 
-Tento repozitář obsahuje veřejnou informační prezentaci služby POSMTRADE. Web srozumitelně vysvětluje, jak služba pomáhá oprávněným organizacím automatizovat zpracování e-mailů a dokumentů, a poskytuje veřejné stránky potřebné pro Google OAuth. Výchozí jazyk webu je angličtina; česká a ukrajinská verze jsou dostupné jako samostatné statické stránky.
+Tento repozitář obsahuje veřejnou informační prezentaci služby POSMTRADE. Web srozumitelně vysvětluje, jak služba pomáhá oprávněným organizacím automatizovat zpracování e-mailů a dokumentů, a poskytuje veřejné stránky potřebné pro Google OAuth. Výchozí jazyk webu je ukrajinština; česká a anglická verze jsou dostupné jako samostatné statické stránky.
 
 ## Rozsah projektu
 
@@ -13,11 +13,12 @@ Soukromý klientský dashboard je jiný projekt. Běží lokálně, nepatří do
 
 ## Struktura webu
 
-- `site/index.html` – anglická domovská stránka;
-- `site/privacy.html` – anglická ochrana soukromí;
-- `site/terms.html` – anglické podmínky používání;
+- `site/index.html` – ukrajinská domovská stránka;
+- `site/privacy.html` – ukrajinská ochrana soukromí;
+- `site/terms.html` – ukrajinské podmínky používání;
 - `site/cs/` – česká jazyková verze;
-- `site/uk/` – ukrajinská jazyková verze;
+- `site/en/` – anglická jazyková verze;
+- `site/uk/` – kompatibilní kopie ukrajinské verze pro dřívější odkazy;
 - `site/styles.css` – společný responzivní vzhled.
 
 ## Lokální náhled
