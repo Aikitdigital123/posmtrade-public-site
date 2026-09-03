@@ -1,6 +1,6 @@
 # Další kroky pro Google OAuth
 
-Nejprve zprovozněte GitHub Pages a ověřte, že jsou všechny tři níže uvedené stránky veřejně dostupné bez přihlášení.
+Nejprve zprovozněte GitHub Pages a ověřte, že jsou níže uvedené stránky veřejně dostupné bez přihlášení. Pro Google OAuth použijte anglickou výchozí verzi v kořeni webu.
 
 ## 1. Google Auth Platform → Branding
 
@@ -24,6 +24,12 @@ Po úspěšném nasazení použijte:
 - **Homepage:** `https://aikitdigital123.github.io/posmtrade-public-site/`
 - **Privacy policy:** `https://aikitdigital123.github.io/posmtrade-public-site/privacy.html`
 - **Terms of service:** `https://aikitdigital123.github.io/posmtrade-public-site/terms.html`
+
+Jazykové verze domovské stránky jsou:
+
+- **English:** `https://aikitdigital123.github.io/posmtrade-public-site/`
+- **Česky:** `https://aikitdigital123.github.io/posmtrade-public-site/cs/`
+- **Українською:** `https://aikitdigital123.github.io/posmtrade-public-site/uk/`
 
 Tyto adresy slouží jako dočasné veřejné URL. Pro finální produkční ověření Google požaduje doménu, jejíž vlastnictví lze ověřit. Po připojení vlastní domény proto nahraďte všechny tři adresy odpovídajícími URL na stejné vlastní doméně a jako **Authorized domain** vložte její kořen.
 
