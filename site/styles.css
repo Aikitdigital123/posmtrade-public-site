@@ -1,13 +1,14 @@
 :root {
   color-scheme: light;
-  --ink: #17221f;
-  --muted: #586661;
-  --paper: #f7f8f4;
+  --ink: #10242c;
+  --muted: #536a74;
+  --paper: #f3fbff;
   --surface: #ffffff;
-  --accent: #14634f;
-  --accent-dark: #0d3f36;
-  --accent-soft: #dcebe5;
-  --line: #dce2de;
+  --accent: #00a7df;
+  --accent-dark: #08759a;
+  --accent-soft: #d7f4ff;
+  --accent-bright: #21c4ee;
+  --line: #cfe8f1;
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   font-synthesis: none;
 }
@@ -27,7 +28,8 @@ body {
   flex-direction: column;
   color: var(--ink);
   background:
-    radial-gradient(circle at 85% 8%, rgba(20, 99, 79, 0.10), transparent 30rem),
+    radial-gradient(circle at 86% 8%, rgba(0, 167, 223, 0.18), transparent 30rem),
+    radial-gradient(circle at 12% 18%, rgba(33, 196, 238, 0.12), transparent 26rem),
     var(--paper);
   line-height: 1.65;
 }
@@ -58,7 +60,7 @@ a:hover {
 }
 
 a:focus-visible {
-  outline: 3px solid rgba(20, 99, 79, 0.3);
+  outline: 3px solid rgba(0, 167, 223, 0.32);
   outline-offset: 4px;
   border-radius: 2px;
 }
@@ -78,11 +80,21 @@ footer {
 }
 
 .brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
   color: var(--ink);
   font-size: 1rem;
   font-weight: 800;
   letter-spacing: 0.12em;
   text-decoration: none;
+}
+
+.brand img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  box-shadow: 0 8px 22px rgba(0, 132, 184, 0.18);
 }
 
 .header-tools {
@@ -115,7 +127,7 @@ nav a[aria-current="page"] {
   padding: 0.2rem 0.4rem;
   border: 1px solid var(--line);
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.64);
+  background: rgba(255, 255, 255, 0.78);
 }
 
 .language-switch a {
@@ -206,14 +218,15 @@ h1 {
   padding: 0.8rem 1.1rem;
   border-radius: 8px;
   color: #fff;
-  background: var(--accent-dark);
+  background: linear-gradient(135deg, var(--accent-bright), var(--accent-dark));
   font-weight: 750;
   text-decoration: none;
+  box-shadow: 0 12px 24px rgba(0, 132, 184, 0.18);
 }
 
 .button:hover {
   color: #fff;
-  background: var(--accent);
+  background: linear-gradient(135deg, var(--accent), #006f9d);
 }
 
 .text-link {
@@ -225,15 +238,15 @@ h1 {
   position: relative;
   min-height: 360px;
   overflow: hidden;
-  border: 1px solid rgba(20, 99, 79, 0.18);
+  border: 1px solid rgba(0, 167, 223, 0.22);
   border-radius: 26px;
-  background: linear-gradient(145deg, #eef5f1, #d9e9e2);
-  box-shadow: 0 24px 60px rgba(19, 54, 45, 0.12);
+  background: linear-gradient(145deg, #e9faff, #b9ecfb 56%, #00a7df);
+  box-shadow: 0 24px 60px rgba(0, 118, 168, 0.16);
 }
 
 .signal {
   position: absolute;
-  border: 1px solid rgba(20, 99, 79, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.36);
   border-radius: 50%;
 }
 
@@ -244,10 +257,10 @@ h1 {
 .visual-card {
   position: absolute;
   padding: 1rem;
-  border: 1px solid rgba(20, 99, 79, 0.14);
+  border: 1px solid rgba(0, 167, 223, 0.16);
   border-radius: 12px;
   background: rgba(255, 255, 255, 0.88);
-  box-shadow: 0 18px 35px rgba(13, 63, 54, 0.12);
+  box-shadow: 0 18px 35px rgba(0, 107, 151, 0.14);
 }
 
 .visual-card span {
@@ -279,7 +292,7 @@ h1 {
   background: var(--accent-dark);
   font-size: 1.5rem;
   font-weight: 900;
-  box-shadow: 0 12px 24px rgba(13, 63, 54, 0.22);
+  box-shadow: 0 12px 24px rgba(0, 98, 143, 0.25);
 }
 
 .overview,
@@ -326,7 +339,7 @@ h2 {
   padding: 1.6rem;
   border: 1px solid var(--line);
   border-radius: 14px;
-  background: rgba(255, 255, 255, 0.75);
+  background: rgba(255, 255, 255, 0.82);
 }
 
 .card-number {
