@@ -1,15 +1,31 @@
 # POSMTRADE – veřejný web
 
-Tento repozitář obsahuje jednoduchou veřejnou prezentaci služby POSMTRADE pro účely informování uživatelů a ověření Google OAuth.
+Tento repozitář obsahuje veřejnou informační prezentaci služby POSMTRADE. Web srozumitelně vysvětluje, jak služba pomáhá oprávněným organizacím automatizovat zpracování e-mailů a dokumentů, a poskytuje veřejné stránky potřebné pro Google OAuth.
 
-Web je tvořen pouze statickými soubory HTML a CSS v adresáři `site/`. Neobsahuje backend, databázi, formuláře, cookies, analytiku ani externí trackery.
+## Rozsah projektu
+
+- pouze statické HTML a CSS v adresáři `site/`;
+- žádný backend, databáze, formuláře, cookies, analytika ani externí trackery;
+- žádná klientská data, přihlašovací údaje nebo neveřejné provozní informace;
+- publikování pouze prostřednictvím GitHub Pages.
+
+Soukromý klientský dashboard je jiný projekt. Běží lokálně, nepatří do tohoto repozitáře a nebude publikován přes GitHub Pages. Jeho případné budoucí zpřístupnění bude řešeno odděleně přes Cloudflare Tunnel.
+
+## Struktura webu
+
+- `site/index.html` – domovská stránka;
+- `site/privacy.html` – ochrana soukromí;
+- `site/terms.html` – podmínky používání;
+- `site/styles.css` – společný responzivní vzhled.
 
 ## Lokální náhled
 
-Otevřete soubor `site/index.html` v prohlížeči nebo spusťte libovolný lokální server pro statické soubory s kořenem v adresáři `site/`.
+Otevřete `site/index.html` v prohlížeči nebo spusťte libovolný lokální server pro statické soubory s kořenem v adresáři `site/`.
 
-## Publikování
+## GitHub Pages
 
-Workflow v `.github/workflows/pages.yml` publikuje obsah adresáře `site/` na GitHub Pages po změně větve `main`. V nastavení repozitáře musí být jako zdroj GitHub Pages zvoleno **GitHub Actions**.
+Workflow `.github/workflows/pages.yml` publikuje přesně obsah adresáře `site/` po změně větve `main`. V repozitáři je nutné jednorázově nastavit **Settings → Pages → Build and deployment → Source: GitHub Actions**.
 
-Před každým zveřejněním postupujte podle `SECURITY.md`.
+Očekávaná adresa je `https://aikitdigital123.github.io/posmtrade-public-site/`.
+
+Před každým commitem postupujte podle `SECURITY.md`. Další kroky pro Google OAuth jsou v `GOOGLE_OAUTH_NEXT_STEPS.md`.
