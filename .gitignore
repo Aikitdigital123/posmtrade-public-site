@@ -1,0 +1,19 @@
+# Citlivé konfigurační soubory
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Lokální systémové a editorové soubory
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Dočasné soubory a logy
+*.log
+*.tmp
+*.bak
