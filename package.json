@@ -9,7 +9,8 @@
     "preview": "vite preview",
     "check": "npm run build && node build/check.mjs",
     "test": "playwright test",
-    "test:ui": "playwright test --ui"
+    "test:ui": "playwright test --ui",
+    "shots": "node build/shots.mjs"
   },
   "devDependencies": {
     "@playwright/test": "1.57.0",

@@ -20,6 +20,8 @@ Thumbs.db
 
 # Vite
 node_modules/
+# Sajtik's worktrees link node_modules (a symlink is a file, not matched by the line above)
+node_modules
 dist/
 pages/
 test-results/

@@ -9,7 +9,12 @@ packaging, 3D mock-ups) and how its automation works. It is also the **public ho
 terms of use for Google OAuth**, and every agent e-mail footer links to it. Built with **Vite + vanilla
 JavaScript**, published by GitHub Pages: <https://aikitdigital123.github.io/posmtrade-public-site/>.
 
-Sajtik (Сайтік) is the agent that makes the changes Marina or the owner ask for – quickly, safely, through GitHub.
+Sajtik (Сайтік) is the agent that makes the changes Marina, Gergel or the owner ask for. Since 2026-11-24 he is an
+agent of the POSMTRADE mail system (`~/Projects/posmtrade-stack/mail-orchestrator/docs/SAJTIK.md`): colleagues
+e-mail him, he changes a separate git worktree of this repo (branch `sajtik/<thread>`), runs `npm run check` and the
+Playwright suite, sends screenshots (`npm run shots`, `build/shots.mjs`) and publishes only after an exact «Так»
+(push to `main` → GitHub Actions). Photos from e-mails go through `build/image.py`. The same rules below apply to him
+and to anyone working here by hand.
 
 ## 2. Where to change what
 
@@ -35,7 +40,7 @@ is a copy kept for old links.
 
 ## 3. How a change is made (every time)
 
-1. `git pull --ff-only` in `~/Projects/aikit/posmtrade-public-site`.
+1. `git pull --ff-only` in `~/Projects/posmtrade-stack/public-site`.
 2. Change the smallest thing that does what was asked. A text change goes into all three languages
    (translate it yourself; Ukrainian first if Marina wrote in Ukrainian).
 3. `npm run check` – builds the site and checks: all 12 public pages exist (OAuth + e-mail footer URLs),
