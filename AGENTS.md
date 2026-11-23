@@ -16,13 +16,14 @@ Sajtik (Сайтік) is the agent that makes the changes Marina or the owner as
 | Change | File |
 |---|---|
 | Any text on the home page (UA / CZ / EN) | `src/content/uk.json`, `cs.json`, `en.json` – **same keys in all three** |
-| Contact e-mail, phone, address, logo path | `src/content/site.json` (empty value = line not shown) |
+| Contact people (Marina, Gergel), office phone and address, logo path | `src/content/site.json` → `people`, `office` |
+| Projects section: types and counts | `projects.types` in the three JSON files; per-year numbers in `site.json` → `projectsByYear` (from `~/Data/Posmtrade/Znalosti/projekty.db`, rows `druh='projekt'`) |
 | Privacy policy / terms text | `src/content/legal/<lang>-privacy.html`, `<lang>-terms.html` |
 | Colours, fonts, spacing, animations | `src/styles/main.css` (colours are tokens on `:root`) |
 | Product illustrations (services cards) | `build/icons.mjs` (key = `icon` in the JSON) |
 | Agents menu (cards: name, role, text) | `agents.items` in the three JSON files; avatar = `public/agents/<avatar>.webp` (no file → drawn badge) |
-| Hero stand drawing, page layout, sections | `build/render.mjs` |
-| Rotating 3D stand | `src/stand3d.js` |
+| Page layout, sections, die-line drawing | `build/render.mjs` |
+| Rotating 3D stand in the hero (owner likes it – keep) | `src/stand3d.js` |
 | Behaviour (menu, counters, reveal on scroll) | `src/main.js` |
 | Images, favicon, files served as-is | `public/` (referenced as `/name.png`) |
 
@@ -48,9 +49,9 @@ a preview first and wait for «так / ano / ok».
 
 ## 4. Never
 
-- Client names, brands, photos of client projects, prices, orders, documents – the site is public.
+- Client names, brands (projects are shown by type and count only – the owner decides if brands may be named), photos of client projects, prices, orders, documents – the site is public.
   Photos of real displays only when the owner confirms the client agreed.
-- Personal e-mail addresses, tokens, `.env`, logs, internal system details (servers, paths, route keys, how the
+- E-mail addresses other than the contact people in `site.json` (`npm run check` blocks them), tokens, `.env`, logs, internal system details (servers, paths, route keys, how the
   agents are built). Agent persona names and what they do are public – they sign our e-mails.
 - Photos of real people. The Конструктерчик/Макетчик avatar is a photo of a real person (a meme) – never on the
   site; Макетчик has a drawn «3D» badge instead.

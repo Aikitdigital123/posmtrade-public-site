@@ -16,7 +16,7 @@ Web bude použit při přechodu Google OAuth z režimu Testing do Production, ab
 
 ## Zakázané změny
 
-- klientská data, názvy klientů, e-mailové adresy, dokumenty nebo zakázky;
+- klientská data, názvy klientů, e-mailové adresy (kromě kontaktních osob v `src/content/site.json`, schváleno vlastníkem 2026-11-23), dokumenty nebo zakázky;
 - přihlašovací údaje, tokeny, secrets, soubory `.env`, logy nebo neveřejné adresy;
 - interní názvy, podrobnosti neveřejných systémů nebo provozní konfigurace;
 - backend, databáze, formuláře, analytika, cookies nebo externí trackery;

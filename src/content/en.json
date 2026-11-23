@@ -9,6 +9,7 @@
     "skip": "Skip to content",
     "menu": "Menu",
     "services": "What we do",
+    "projects": "Projects",
     "process": "How we work",
     "mockup": "3D mock-up",
     "contact": "Contact",
@@ -19,10 +20,12 @@
   },
   "hero": {
     "eyebrow": "POS materials · cardboard displays · print",
-    "title": "Make your product <em>stand out</em> on the shelf",
+    "title": "We make your product <em>stand out</em> on the shelf",
     "lead": "We design and manufacture cardboard displays, stands and POS materials for retail — from the first idea and 3D mock-up to printing, assembly and delivery to the store.",
     "ctaPrimary": "What we do",
-    "ctaSecondary": "How we work"
+    "ctaSecondary": "How we work",
+    "apart": "Take apart",
+    "together": "Assemble"
   },
   "stats": [
     {
@@ -31,15 +34,14 @@
       "label": "projects delivered"
     },
     {
-      "value": 2021,
+      "value": 6,
       "suffix": "",
-      "label": "the year our project records start",
-      "plain": true
+      "label": "steps — from brief to delivery"
     },
     {
-      "value": 24,
-      "suffix": "/7",
-      "label": "digital assistants handle mail and documents"
+      "value": 10,
+      "suffix": "",
+      "label": "digital assistants on the team"
     }
   ],
   "services": {
@@ -76,6 +78,64 @@
         "icon": "box",
         "title": "Shipping packaging",
         "text": "Boxes that get the display safely to the store and make set-up quick on site."
+      }
+    ]
+  },
+  "projects": {
+    "eyebrow": "Our projects",
+    "title": "Over 1,700 projects since 2021",
+    "intro": "Every project is its own design for a specific product and store. Pick a type to see what we make most.",
+    "unit": "projects",
+    "yearsTitle": "Projects per year",
+    "yearsNote": "2026 — as of November",
+    "types": [
+      {
+        "key": "display",
+        "label": "Displays",
+        "count": "500+",
+        "text": "Floor and counter displays with shelves — our core product."
+      },
+      {
+        "key": "barketa",
+        "label": "Pallet skirts",
+        "count": "200+",
+        "text": "Printed skirts around a pallet of product: the promotion is visible across the store."
+      },
+      {
+        "key": "figure",
+        "label": "Standees",
+        "count": "160+",
+        "text": "Flat and 3D standees, checkout figures — brand characters at full size."
+      },
+      {
+        "key": "box",
+        "label": "Boxes",
+        "count": "160+",
+        "text": "Gift, promo and shipping packaging made for a specific campaign."
+      },
+      {
+        "key": "decoration",
+        "label": "Decorations",
+        "count": "100+",
+        "text": "Store and zone decoration for holidays, openings and promotions."
+      },
+      {
+        "key": "pallet",
+        "label": "Pallet frames",
+        "count": "80+",
+        "text": "Frames and half-pallets that turn a pallet into a showcase."
+      },
+      {
+        "key": "tray",
+        "label": "Trays",
+        "count": "60+",
+        "text": "Shelf and checkout trays — products stand straight and stay visible."
+      },
+      {
+        "key": "cube",
+        "label": "Cubes and islands",
+        "count": "60+",
+        "text": "Cubes, islands and stands for the middle of the store."
       }
     ]
   },
@@ -216,9 +276,13 @@
   },
   "contact": {
     "eyebrow": "Contact",
-    "title": "Got a product that needs a stage?",
-    "text": "Tell us about the product and the store — we will propose a design, show a 3D mock-up and quote the batch.",
-    "cta": "Write to us"
+    "title": "Let's talk about your project",
+    "text": "Write or call — we will propose a design, show a 3D mock-up and quote the batch.",
+    "office": "Office",
+    "call": "Call",
+    "write": "Write",
+    "copy": "Copy",
+    "copied": "Copied"
   },
   "footer": {
     "rights": "© 2026 POSMTRADE",

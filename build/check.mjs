@@ -38,8 +38,9 @@ for (const file of walk(dist).filter((f) => f.endsWith(".html"))) {
   }
 }
 
-const siteContact = JSON.parse(readFileSync(join(root, "src/content/site.json"), "utf8")).contact;
-const allowedMail = new Set(siteContact.email ? [siteContact.email] : []);
+// Only the contact people listed in src/content/site.json may appear on the site.
+const site = JSON.parse(readFileSync(join(root, "src/content/site.json"), "utf8"));
+const allowedMail = new Set(site.people.map((p) => p.email));
 const secretPatterns = [
   [/gh[pousr]_[A-Za-z0-9]{20,}/, "GitHub token"],
   [/sk-[A-Za-z0-9_-]{20,}/, "API key"],

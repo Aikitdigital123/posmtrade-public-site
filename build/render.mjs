@@ -1,9 +1,10 @@
 // Generates the HTML pages in pages/ from the texts in src/content/.
 // Texts are edited in src/content/<lang>.json and src/content/legal/; this file only builds the layout.
 // Run by `npm run dev` and `npm run build` automatically.
-import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
+import { agentIcons } from "./agent-icons.mjs";
 import { icons } from "./icons.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
@@ -42,6 +43,7 @@ function header(c, lang, dir, page) {
   const home = page === "index" ? "" : "index.html";
   const links = [
     ["services", c.nav.services],
+    ["projects", c.nav.projects],
     ["process", c.nav.process],
     ["mockup", c.nav.mockup],
     ["agents", c.nav.agents],
@@ -82,55 +84,64 @@ function footer(c) {
   </footer>`;
 }
 
-const heroStand = `
-<svg class="hero-stand" viewBox="0 0 440 540" role="img" aria-hidden="true">
-  <defs>
-    <linearGradient id="g-side" x1="0" x2="1"><stop offset="0" stop-color="#0a8fd0"/><stop offset="1" stop-color="#056a9e"/></linearGradient>
-    <linearGradient id="g-front" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2cc4f4"/><stop offset="1" stop-color="#0a8fd0"/></linearGradient>
-    <linearGradient id="g-topper" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#34d0ff"/><stop offset="1" stop-color="#0779b8"/></linearGradient>
-  </defs>
-  <ellipse class="s-shadow" cx="225" cy="512" rx="170" ry="16"/>
-  <g class="s-part s-back"><rect x="118" y="150" width="190" height="320" rx="4" fill="#e6f6fd"/><path d="M118 150h190" stroke="#bfe6f7" stroke-width="2"/></g>
-  <g class="s-part s-right"><path d="M318 150 372 118v322l-54 32z" fill="url(#g-side)"/><path d="M330 190 360 172M330 214 360 196" stroke="#ffffff55" stroke-width="6" stroke-linecap="round"/></g>
-  <g class="s-part s-left"><rect x="100" y="146" width="20" height="326" rx="3" fill="url(#g-front)"/></g>
-  <g class="s-part s-rightedge"><rect x="306" y="146" width="20" height="326" rx="3" fill="url(#g-front)"/></g>
-  ${[0, 1, 2, 3]
-    .map((i) => {
-      const y = 232 + i * 76;
-      const colors = [
-        ["#ff7a59", "#ffc94d", "#ff7a59"],
-        ["#3ddc97", "#0b2540", "#3ddc97"],
-        ["#ffc94d", "#ff7a59", "#7c6cff"],
-        ["#7c6cff", "#3ddc97", "#ffc94d"],
-      ][i];
-      const products = colors
-        .map((col, j) => {
-          const x = 134 + j * 58;
-          const h = 34 + ((i + j) % 3) * 8;
-          return `<g class="s-product" style="--d:${1.5 + i * 0.18 + j * 0.07}s"><rect x="${x}" y="${y - h}" width="44" height="${h}" rx="6" fill="${col}"/><rect x="${x + 8}" y="${y - h + 9}" width="28" height="5" rx="2.5" fill="#ffffff88"/></g>`;
-        })
-        .join("");
-      return `<g class="s-part s-shelf" style="--d:${0.75 + i * 0.12}s">${products}<path d="M120 ${y}h186l12-8H132z" fill="#cdeefb"/><rect x="114" y="${y}" width="198" height="20" rx="3" fill="#0b2540"/><rect x="128" y="${y + 7}" width="70" height="6" rx="3" fill="#2cc4f4"/></g>`;
+// Headings appear word by word: every word sits in a mask and slides up. <em> keeps its gradient.
+function words(text, start = 0) {
+  const tokens = String(text).match(/<em>.*?<\/em>|\S+/g) ?? [];
+  let i = start;
+  return tokens
+    .map((tok) => {
+      const em = tok.startsWith("<em>");
+      const inner = em ? tok.slice(4, -5) : tok;
+      return inner
+        .split(/\s+/)
+        .map((w) => `<span class="w"><span class="${em ? "em" : ""}" style="--w:${i++}">${esc(w)}</span></span>`)
+        .join(" ");
     })
-    .join("")}
-  <g class="s-part s-base"><rect x="98" y="470" width="230" height="30" rx="4" fill="#0b2540"/><rect x="118" y="481" width="120" height="8" rx="4" fill="#2cc4f4"/></g>
-  <g class="s-part s-topper">
-    <path d="M110 152V96c0-30 28-54 60-54h92c32 0 56 24 56 54v56z" fill="url(#g-topper)"/>
-    <circle cx="160" cy="100" r="30" fill="#fff"/>
-    <path d="M150 84h14a11 11 0 0 1 0 22h-6v12h-8z" fill="#0a8fd0"/>
-    <rect x="202" y="84" width="88" height="10" rx="5" fill="#fff"/>
-    <rect x="202" y="104" width="58" height="8" rx="4" fill="#ffffffaa"/>
+    .join(" ");
+}
+
+// The 3D section shows the flat die-line being cut, printed and turned into a model.
+const shelvesPrint = [0, 1, 2, 3]
+  .map(
+    (i) =>
+      `<g style="--p:${3 + i}"><rect x="386" y="${62 + i * 66}" width="130" height="54" rx="2" fill="#dff4fd"/><rect x="386" y="${62 + i * 66}" width="130" height="16" fill="#0b2540"/><rect x="396" y="${67 + i * 66}" width="46" height="6" rx="3" fill="#2cc4f4"/></g>`,
+  )
+  .join("");
+const shelvesCut = [0, 1, 2, 3]
+  .map((i) => `<path pathLength="1" style="--c:${3 + i * 0.5}" d="M386 ${62 + i * 66}h130v54H386z"/>`)
+  .join("");
+const dieline = `
+<svg class="dieline-svg" viewBox="0 0 540 430" aria-hidden="true">
+  <defs>
+    <linearGradient id="dl-side" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2cc4f4"/><stop offset="1" stop-color="#0a8fd0"/></linearGradient>
+    <linearGradient id="dl-top" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#34d0ff"/><stop offset="1" stop-color="#0779b8"/></linearGradient>
+  </defs>
+  <g class="dl-print">
+    <rect style="--p:0" x="24" y="74" width="84" height="300" rx="2" fill="url(#dl-side)"/>
+    <rect style="--p:1" x="120" y="56" width="150" height="318" rx="2" fill="#e6f6fd"/>
+    <rect style="--p:2" x="282" y="74" width="84" height="300" rx="2" fill="url(#dl-side)"/>
+    ${shelvesPrint}
+    <g style="--p:7"><path d="M120 56V34c0-14 12-24 26-24h98c14 0 26 10 26 24v22z" fill="url(#dl-top)"/><circle cx="160" cy="34" r="14" fill="#fff"/><path d="M155 27h6a5 5 0 0 1 0 10h-2v6h-4z" fill="#0a8fd0"/><rect x="184" y="27" width="66" height="7" rx="3.5" fill="#fff"/></g>
+    <g style="--p:8" fill="#ffffff66"><circle cx="66" cy="300" r="22"/><circle cx="324" cy="300" r="22"/><rect x="38" y="110" width="56" height="8" rx="4"/><rect x="296" y="110" width="56" height="8" rx="4"/></g>
   </g>
-  <g class="s-badge s-badge-1"><rect x="8" y="190" width="78" height="40" rx="20" fill="#fff"/><text x="47" y="216" text-anchor="middle">3D</text></g>
-  <g class="s-badge s-badge-2"><rect x="352" y="62" width="82" height="40" rx="20" fill="#fff"/><text x="393" y="88" text-anchor="middle">CMYK</text></g>
-  <g class="s-badge s-badge-3"><circle cx="392" cy="470" r="24" fill="#3ddc97"/><path d="m381 470 8 8 15-16" stroke="#fff" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></g>
+  <g class="dl-cut" fill="none" stroke="#0b2540" stroke-width="2.2" stroke-linejoin="round">
+    <path pathLength="1" style="--c:0" d="M24 74h84v300H24z"/>
+    <path pathLength="1" style="--c:1" d="M120 56h150v318H120zM120 56V34c0-14 12-24 26-24h98c14 0 26 10 26 24v22"/>
+    <path pathLength="1" style="--c:2" d="M282 74h84v300h-84z"/>
+    ${shelvesCut}
+  </g>
+  <g class="dl-fold" fill="none" stroke="#ff7a59" stroke-width="1.6" stroke-dasharray="6 5">
+    <path d="M38 74v300M352 74v300M120 74h150M386 78h130M386 144h130M386 210h130M386 276h130"/>
+  </g>
+  <rect class="dl-laser" x="0" y="0" width="3" height="430" rx="1.5" fill="#ff7a59"/>
+  <g class="dl-chip"><rect x="404" y="350" width="112" height="44" rx="22" fill="#0b2540"/><text x="460" y="378" text-anchor="middle">→ 3D</text></g>
 </svg>`;
 
-function home(c) {
+function home(c, lang) {
   const stats = c.stats
     .map(
-      (s) => `<div class="stat reveal">
-        <strong><span data-count="${s.value}"${s.plain ? ' data-plain="1"' : ""}>${s.value}</span>${esc(s.suffix)}</strong>
+      (s, i) => `<div class="stat reveal" style="--i:${i}">
+        <strong><span data-count="${s.value}">${s.value}</span><em class="suffix">${esc(s.suffix)}</em></strong>
         <span>${esc(s.label)}</span>
       </div>`,
     )
@@ -164,13 +175,10 @@ function home(c) {
       </article>`,
     )
     .join("");
-  // Avatar from public/agents/<key>.webp; without a file the agent gets a drawn badge with its initial.
+  // Drawn icon per agent (build/agent-icons.mjs) – never photos.
   const agents = c.agents.items
     .map((a, i) => {
-      const hasAvatar = existsSync(join(root, "public/agents", `${a.avatar}.webp`));
-      const face = hasAvatar
-        ? `<img src="/agents/${a.avatar}.webp" alt="" width="96" height="96" loading="lazy">`
-        : `<span class="agent-badge">${esc(a.avatar === "maketchyk" ? "3D" : [...a.name.replace(/^Пані\s+/, "")][0])}</span>`;
+      const face = agentIcons[a.avatar] ?? "";
       return `<article class="agent-card reveal" style="--i:${i % 5}">
         <div class="agent-face">${face}</div>
         <h3>${esc(a.name)}</h3>
@@ -179,30 +187,86 @@ function home(c) {
       </article>`;
     })
     .join("");
-  const ct = site.contact;
-  const contactLines = [
-    ct.email && `<a class="button" href="mailto:${esc(ct.email)}">${esc(c.contact.cta)}</a>`,
-    ct.email && `<a class="contact-line" href="mailto:${esc(ct.email)}">${esc(ct.email)}</a>`,
-    ct.phone && `<a class="contact-line" href="tel:${esc(ct.phone.replace(/\s+/g, ""))}">${esc(ct.phone)}</a>`,
-    ct.address && `<span class="contact-line">${esc(ct.address)}</span>`,
-  ]
-    .filter(Boolean)
+  // Projects: tabs with the project types (real counts from the project archive) + projects per year.
+  const pt = c.projects.types;
+  const tabs = pt
+    .map(
+      (t, i) => `<button class="proj-tab" type="button" role="tab" id="pt-${t.key}" aria-controls="pp-${t.key}" aria-selected="${i === 0}" data-i="${i}">
+        <span class="proj-tab-label">${esc(t.label)}</span><span class="proj-tab-count">${esc(t.count)}</span><i class="proj-tab-bar"></i>
+      </button>`,
+    )
     .join("");
+  const panels = pt
+    .map(
+      (t, i) => `<div class="proj-panel${i === 0 ? " is-active" : ""}" role="tabpanel" id="pp-${t.key}" aria-labelledby="pt-${t.key}">
+        <div class="proj-art">${icons[t.key === "display" ? "floor" : t.key] ?? ""}</div>
+        <div class="proj-info"><strong class="proj-count">${esc(t.count)}</strong><span class="proj-unit">${esc(c.projects.unit)}</span>
+        <h3>${esc(t.label)}</h3><p>${esc(t.text)}</p></div>
+      </div>`,
+    )
+    .join("");
+  const years = site.projectsByYear;
+  const maxYear = Math.max(...years.map(([, n]) => n));
+  const bars = years
+    .map(
+      ([y, n], i) => `<div class="year" style="--h:${((n / maxYear) * 100).toFixed(1)}%;--i:${i}">
+        <span class="year-val">${n}</span><span class="year-bar"></span><span class="year-label">${y}</span>
+      </div>`,
+    )
+    .join("");
+
+  // Contact: people from site.json, drawn initials instead of photos; call / write / copy.
+  const telHref = (t) => `tel:${t.replace(/[^+\d]/g, "")}`;
+  const people = site.people
+    .map((p, i) => {
+      const name = p.name[lang];
+      const initials = name
+        .split(/\s+/)
+        .map((w) => [...w][0])
+        .join("");
+      return `<article class="person reveal" style="--i:${i}">
+        <div class="person-avatar" aria-hidden="true"><span>${esc(initials)}</span></div>
+        <div class="person-body">
+          <h3>${esc(name)}</h3>
+          <p class="person-role">${esc(p.role[lang])}</p>
+          <a class="person-line" href="${telHref(p.phone)}"><span aria-hidden="true">☎</span>${esc(p.phone)}</a>
+          <span class="person-line"><a href="mailto:${esc(p.email)}"><span aria-hidden="true">✉</span>${esc(p.email)}</a>
+            <button class="copy" type="button" data-copy="${esc(p.email)}" data-done="${esc(c.contact.copied)}" aria-label="${esc(c.contact.copy)}: ${esc(p.email)}">${esc(c.contact.copy)}</button></span>
+          <div class="person-actions">
+            <a class="button small" href="${telHref(p.phone)}">${esc(c.contact.call)}</a>
+            <a class="button small ghost" href="mailto:${esc(p.email)}">${esc(c.contact.write)}</a>
+          </div>
+        </div>
+      </article>`;
+    })
+    .join("");
+  const office = `<div class="office reveal"><strong>${esc(c.contact.office)}</strong>
+      <a href="${telHref(site.office.phone)}">${esc(site.office.phone)}</a><span>${esc(site.office.address[lang])}</span></div>`;
 
   return `
   <main id="content">
     <section class="hero">
-      <div class="hero-bg" aria-hidden="true"><span class="blob b1"></span><span class="blob b2"></span><span class="dieline"></span></div>
+      <div class="hero-bg" aria-hidden="true"><span class="blob b1"></span><span class="blob b2"></span><span class="dieline"></span><span class="spot"></span></div>
       <div class="hero-copy">
         <p class="eyebrow hero-in" style="--i:0">${esc(c.hero.eyebrow)}</p>
-        <h1 class="hero-in" style="--i:1">${html(c.hero.title)}</h1>
-        <p class="lead hero-in" style="--i:2">${esc(c.hero.lead)}</p>
-        <div class="hero-links hero-in" style="--i:3">
-          <a class="button magnetic" href="#services">${esc(c.hero.ctaPrimary)}</a>
+        <h1 class="split">${words(c.hero.title)}</h1>
+        <p class="lead hero-in" style="--i:3">${esc(c.hero.lead)}</p>
+        <div class="hero-links hero-in" style="--i:4">
+          <a class="button magnetic" href="#services">${esc(c.hero.ctaPrimary)}<span class="arrow" aria-hidden="true">→</span></a>
           <a class="button ghost" href="#process">${esc(c.hero.ctaSecondary)}</a>
         </div>
       </div>
-      <div class="hero-visual">${heroStand}</div>
+      <div class="hero-visual">
+        <div class="stand-stage" data-stand3d>
+          <div class="stand3d" aria-hidden="true"></div>
+          <div class="stage-floor" aria-hidden="true"></div>
+          <span class="chip chip-1" aria-hidden="true">3D</span>
+          <span class="chip chip-2" aria-hidden="true">CMYK</span>
+          <span class="chip chip-3" aria-hidden="true">✓</span>
+          <button class="stand-toggle" type="button" data-apart="${esc(c.hero.apart)}" data-together="${esc(c.hero.together)}">${esc(c.hero.apart)}</button>
+        </div>
+      </div>
+      <a class="scroll-hint" href="#services" aria-label="${esc(c.hero.ctaPrimary)}"><span></span></a>
     </section>
 
     <section class="stats" aria-label="POSMTRADE">${stats}</section>
@@ -210,10 +274,26 @@ function home(c) {
     <section class="section" id="services">
       <div class="section-heading reveal">
         <p class="eyebrow">${esc(c.services.eyebrow)}</p>
-        <h2>${esc(c.services.title)}</h2>
+        <h2 class="split">${words(c.services.title)}</h2>
         <p class="section-intro">${esc(c.services.intro)}</p>
       </div>
       <div class="service-grid">${services}</div>
+    </section>
+
+    <section class="section" id="projects">
+      <div class="section-heading reveal">
+        <p class="eyebrow">${esc(c.projects.eyebrow)}</p>
+        <h2 class="split">${words(c.projects.title)}</h2>
+        <p class="section-intro">${esc(c.projects.intro)}</p>
+      </div>
+      <div class="proj reveal" data-projects>
+        <div class="proj-tabs" role="tablist">${tabs}</div>
+        <div class="proj-stage">${panels}</div>
+      </div>
+      <div class="years reveal">
+        <div class="years-head"><h3>${esc(c.projects.yearsTitle)}</h3><span>${esc(c.projects.yearsNote)}</span></div>
+        <div class="years-chart">${bars}</div>
+      </div>
     </section>
 
     <div class="marquee" aria-hidden="true"><div class="marquee-track">${materials}${materials}</div></div>
@@ -221,7 +301,7 @@ function home(c) {
     <section class="section" id="process">
       <div class="section-heading reveal">
         <p class="eyebrow">${esc(c.process.eyebrow)}</p>
-        <h2>${esc(c.process.title)}</h2>
+        <h2 class="split">${words(c.process.title)}</h2>
       </div>
       <ol class="steps" data-steps><span class="steps-line" aria-hidden="true"><span></span></span>${steps}</ol>
     </section>
@@ -229,24 +309,21 @@ function home(c) {
     <section class="section mockup" id="mockup">
       <div class="mockup-copy reveal">
         <p class="eyebrow">${esc(c.mockup.eyebrow)}</p>
-        <h2>${esc(c.mockup.title)}</h2>
+        <h2 class="split">${words(c.mockup.title)}</h2>
         <p>${esc(c.mockup.text)}</p>
         <ul class="check-list">${points}</ul>
       </div>
-      <div class="mockup-stage reveal" data-stand3d aria-hidden="true">
-        <div class="stand3d"></div>
-        <div class="mockup-floor"></div>
-      </div>
+      <div class="mockup-stage reveal">${dieline}</div>
     </section>
 
     <section class="section automation" id="agents">
       <div class="section-heading reveal">
         <p class="eyebrow">${esc(c.agents.eyebrow)}</p>
-        <h2>${esc(c.agents.title)}</h2>
+        <h2 class="split">${words(c.agents.title)}</h2>
         <p class="section-intro">${esc(c.agents.intro)}</p>
       </div>
       <div class="agent-grid">${agents}</div>
-      <h3 class="principles-title reveal">${esc(c.agents.principlesTitle)}</h3>
+      <h3 class="principles-title reveal split">${words(c.agents.principlesTitle)}</h3>
       <div class="auto-grid">${auto}</div>
       <p class="auto-note reveal">${esc(c.agents.dataNote)}
         <a href="privacy.html">${esc(c.agents.privacyLink)}</a> · <a href="terms.html">${esc(c.agents.termsLink)}</a></p>
@@ -255,10 +332,11 @@ function home(c) {
     <section class="section contact" id="contact">
       <div class="contact-card reveal">
         <p class="eyebrow">${esc(c.contact.eyebrow)}</p>
-        <h2>${esc(c.contact.title)}</h2>
+        <h2 class="split">${words(c.contact.title)}</h2>
         <p>${esc(c.contact.text)}</p>
-        ${contactLines ? `<div class="contact-lines">${contactLines}</div>` : ""}
       </div>
+      <div class="people">${people}</div>
+      ${office}
     </section>
   </main>`;
 }
@@ -290,7 +368,7 @@ function render({ lang, dir }, page) {
 </head>
 <body class="page-${page}">
   ${header(c, lang, dir, page)}
-  ${page === "index" ? home(c) : legal(lang, page)}
+  ${page === "index" ? home(c, lang) : legal(lang, page)}
   ${footer(c)}
 </body>
 </html>

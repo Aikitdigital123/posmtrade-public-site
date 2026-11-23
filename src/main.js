@@ -4,109 +4,226 @@ import "./styles/main.css";
 import { initStand3d } from "./stand3d.js";
 
 const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const finePointer = window.matchMedia("(pointer: fine)").matches;
 document.documentElement.classList.add("js");
+requestAnimationFrame(() => document.documentElement.classList.add("is-loaded"));
 
-// Header: shadow after scrolling, progress bar, mobile menu.
+// ---------- Header: shadow, progress bar, mobile menu ----------
 const header = document.querySelector("[data-header]");
 const progress = document.querySelector(".scroll-progress");
-const onScroll = () => {
-  const y = window.scrollY;
-  header?.classList.toggle("is-scrolled", y > 12);
-  const max = document.documentElement.scrollHeight - window.innerHeight;
-  if (progress) progress.style.transform = `scaleX(${max > 0 ? y / max : 0})`;
-  updateSteps();
-};
-
 const toggle = document.querySelector(".menu-toggle");
 const nav = document.getElementById("main-nav");
-toggle?.addEventListener("click", () => {
-  const open = toggle.getAttribute("aria-expanded") !== "true";
-  toggle.setAttribute("aria-expanded", String(open));
+const setMenu = (open) => {
+  toggle?.setAttribute("aria-expanded", String(open));
   nav?.classList.toggle("is-open", open);
   document.body.classList.toggle("menu-open", open);
-});
-nav?.addEventListener("click", (e) => {
-  if (e.target.closest("a")) {
-    toggle?.setAttribute("aria-expanded", "false");
-    nav.classList.remove("is-open");
-    document.body.classList.remove("menu-open");
-  }
-});
+};
+toggle?.addEventListener("click", () => setMenu(toggle.getAttribute("aria-expanded") !== "true"));
+nav?.addEventListener("click", (e) => e.target.closest("a") && setMenu(false));
+document.addEventListener("keydown", (e) => e.key === "Escape" && setMenu(false));
 
-// Reveal on scroll (everything at once when the visitor prefers less motion).
-if (reduced) document.querySelectorAll(".reveal").forEach((el) => el.classList.add("is-visible"));
-const revealed = new IntersectionObserver(
+// Current section is highlighted in the menu.
+const navLinks = [...document.querySelectorAll(".main-nav a")];
+const sections = navLinks.map((a) => document.querySelector(a.hash)).filter(Boolean);
+const sectionSpy = new IntersectionObserver(
+  (entries) => {
+    for (const e of entries) {
+      if (e.isIntersecting) navLinks.forEach((a) => a.classList.toggle("is-current", a.hash === `#${e.target.id}`));
+    }
+  },
+  { rootMargin: "-45% 0px -50% 0px" },
+);
+sections.forEach((s) => sectionSpy.observe(s));
+
+// ---------- Reveal on scroll ----------
+const revealAll = () => document.querySelectorAll(".reveal").forEach((el) => el.classList.add("is-visible"));
+if (reduced) revealAll();
+const revealer = new IntersectionObserver(
   (entries) => {
     for (const entry of entries) {
       if (!entry.isIntersecting) continue;
       entry.target.classList.add("is-visible");
-      revealed.unobserve(entry.target);
+      revealer.unobserve(entry.target);
       const counter = entry.target.querySelector("[data-count]");
       if (counter) countUp(counter);
     }
   },
-  { threshold: 0.15, rootMargin: "0px 0px -40px 0px" },
+  { threshold: 0.12, rootMargin: "0px 0px -40px 0px" },
 );
-document.querySelectorAll(".reveal").forEach((el) => revealed.observe(el));
+document.querySelectorAll(".reveal").forEach((el) => revealer.observe(el));
 
-// Numbers count up once they are visible.
 function countUp(el) {
   const target = Number(el.dataset.count);
-  const plain = el.dataset.plain === "1";
-  const fmt = (n) => (plain ? String(n) : n.toLocaleString(document.documentElement.lang));
+  const fmt = (n) => n.toLocaleString(document.documentElement.lang);
   if (reduced) return void (el.textContent = fmt(target));
-  const from = plain ? target - 20 : 0;
   const start = performance.now();
   const step = (now) => {
-    const p = Math.min(1, (now - start) / 1600);
-    const eased = 1 - (1 - p) ** 3;
-    el.textContent = fmt(Math.round(from + (target - from) * eased));
+    const p = Math.min(1, (now - start) / 1800);
+    el.textContent = fmt(Math.round(target * (1 - (1 - p) ** 4)));
     if (p < 1) requestAnimationFrame(step);
+    else el.closest(".stat")?.classList.add("is-done");
   };
   requestAnimationFrame(step);
 }
 
-// Process line fills as the steps scroll through the viewport.
-const steps = document.querySelector("[data-steps]");
-const stepLine = steps?.querySelector(".steps-line span");
-function updateSteps() {
-  if (!steps || !stepLine) return;
-  const r = steps.getBoundingClientRect();
-  const vh = window.innerHeight;
-  const p = Math.min(1, Math.max(0, (vh * 0.75 - r.top) / (r.height || 1)));
-  stepLine.style.setProperty("--p", p.toFixed(3));
-  steps.querySelectorAll(".step").forEach((s, i, all) => s.classList.toggle("is-active", p >= (i + 0.35) / all.length));
+// ---------- Hero: 3D stand ----------
+const stage = document.querySelector("[data-stand3d]");
+if (stage) {
+  const stand = initStand3d(stage, { reduced });
+  const btn = stage.querySelector(".stand-toggle");
+  btn?.addEventListener("click", () => {
+    const apart = stand.toggle();
+    btn.textContent = apart ? btn.dataset.together : btn.dataset.apart;
+    btn.setAttribute("aria-pressed", String(apart));
+  });
 }
 
-// Cards: light follows the pointer; hero stand tilts slightly.
-if (!reduced && window.matchMedia("(pointer: fine)").matches) {
-  document.querySelectorAll(".service-card, .auto-card").forEach((card) => {
+// ---------- Projects: tabs that play by themselves until the visitor picks one ----------
+const proj = document.querySelector("[data-projects]");
+if (proj) {
+  const tabs = [...proj.querySelectorAll(".proj-tab")];
+  const panels = [...proj.querySelectorAll(".proj-panel")];
+  let current = 0;
+  let auto = !reduced;
+  let timer = 0;
+  let inView = false;
+  const DURATION = 4200;
+  const show = (i, focus = false) => {
+    current = (i + tabs.length) % tabs.length;
+    tabs.forEach((t, j) => {
+      t.setAttribute("aria-selected", String(j === current));
+      t.tabIndex = j === current ? 0 : -1;
+    });
+    panels.forEach((p, j) => p.classList.toggle("is-active", j === current));
+    if (focus) tabs[current].focus();
+    proj.style.setProperty("--run", "0");
+    timer = 0;
+  };
+  tabs.forEach((t, i) =>
+    t.addEventListener("click", () => {
+      auto = false;
+      proj.classList.add("is-manual");
+      show(i);
+    }),
+  );
+  proj.querySelector(".proj-tabs").addEventListener("keydown", (e) => {
+    const d = { ArrowDown: 1, ArrowRight: 1, ArrowUp: -1, ArrowLeft: -1 }[e.key];
+    if (!d) return;
+    e.preventDefault();
+    auto = false;
+    proj.classList.add("is-manual");
+    show(current + d, true);
+  });
+  proj.addEventListener("pointerenter", () => proj.classList.add("is-paused"));
+  proj.addEventListener("pointerleave", () => proj.classList.remove("is-paused"));
+  new IntersectionObserver(([e]) => (inView = e.isIntersecting)).observe(proj);
+  let prev = performance.now();
+  const loop = (now) => {
+    const dt = now - prev;
+    prev = now;
+    if (auto && inView && !proj.classList.contains("is-paused")) {
+      timer += dt;
+      proj.style.setProperty("--run", (timer / DURATION).toFixed(3));
+      if (timer >= DURATION) show(current + 1);
+    }
+    requestAnimationFrame(loop);
+  };
+  show(0);
+  if (auto) requestAnimationFrame(loop);
+}
+
+// ---------- Copy e-mail ----------
+document.querySelectorAll("[data-copy]").forEach((b) => {
+  const label = b.textContent;
+  b.addEventListener("click", async () => {
+    try {
+      await navigator.clipboard.writeText(b.dataset.copy);
+      b.textContent = b.dataset.done;
+      b.classList.add("is-done");
+      setTimeout(() => {
+        b.textContent = label;
+        b.classList.remove("is-done");
+      }, 1800);
+    } catch {
+      window.location.href = `mailto:${b.dataset.copy}`;
+    }
+  });
+});
+
+// ---------- Scroll-driven effects ----------
+const steps = document.querySelector("[data-steps]");
+const stepLine = steps?.querySelector(".steps-line");
+const heroVisual = document.querySelector(".hero-visual");
+const marquee = document.querySelector(".marquee-track");
+let marqueeX = 0;
+let lastScroll = window.scrollY;
+let velocity = 0;
+
+function onScroll() {
+  const y = window.scrollY;
+  header?.classList.toggle("is-scrolled", y > 12);
+  const max = document.documentElement.scrollHeight - window.innerHeight;
+  if (progress) progress.style.transform = `scaleX(${max > 0 ? y / max : 0})`;
+  if (!reduced && heroVisual && y < window.innerHeight * 1.2) heroVisual.style.translate = `0 ${y * 0.18}px`;
+  if (steps && stepLine) {
+    const r = steps.getBoundingClientRect();
+    const p = Math.min(1, Math.max(0, (window.innerHeight * 0.7 - r.top) / (r.height || 1)));
+    stepLine.style.setProperty("--p", p.toFixed(3));
+    steps.querySelectorAll(".step").forEach((s, i, all) => s.classList.toggle("is-active", p >= (i + 0.3) / all.length));
+  }
+}
+
+// Marquee runs on its own and speeds up / leans with the scroll speed.
+function marqueeLoop() {
+  const y = window.scrollY;
+  velocity += (y - lastScroll - velocity) * 0.12;
+  lastScroll = y;
+  if (marquee) {
+    const half = marquee.scrollWidth / 2;
+    marqueeX -= 0.6 + Math.min(14, Math.abs(velocity) * 0.35);
+    if (marqueeX <= -half) marqueeX += half;
+    marquee.style.transform = `translateX(${marqueeX}px) skewX(${Math.max(-12, Math.min(12, -velocity * 0.4))}deg)`;
+  }
+  requestAnimationFrame(marqueeLoop);
+}
+if (!reduced) requestAnimationFrame(marqueeLoop);
+
+// ---------- Pointer effects (desktop only) ----------
+if (!reduced && finePointer) {
+  // Cards tilt towards the pointer and a soft light follows it.
+  document.querySelectorAll(".service-card, .auto-card, .agent-card, .stat, .person").forEach((card) => {
     card.addEventListener("pointermove", (e) => {
       const r = card.getBoundingClientRect();
-      card.style.setProperty("--mx", `${e.clientX - r.left}px`);
-      card.style.setProperty("--my", `${e.clientY - r.top}px`);
+      const x = (e.clientX - r.left) / r.width;
+      const y = (e.clientY - r.top) / r.height;
+      card.style.setProperty("--mx", `${x * 100}%`);
+      card.style.setProperty("--my", `${y * 100}%`);
+      card.style.setProperty("--rx", `${(0.5 - y) * 8}deg`);
+      card.style.setProperty("--ry", `${(x - 0.5) * 10}deg`);
+    });
+    card.addEventListener("pointerleave", () => {
+      card.style.setProperty("--rx", "0deg");
+      card.style.setProperty("--ry", "0deg");
     });
   });
-  const visual = document.querySelector(".hero-visual");
+
+  // Spotlight in the hero background.
   const hero = document.querySelector(".hero");
   hero?.addEventListener("pointermove", (e) => {
     const r = hero.getBoundingClientRect();
-    const x = (e.clientX - r.left) / r.width - 0.5;
-    const y = (e.clientY - r.top) / r.height - 0.5;
-    visual?.style.setProperty("--tx", `${x * 14}px`);
-    visual?.style.setProperty("--ty", `${y * 10}px`);
+    hero.style.setProperty("--sx", `${e.clientX - r.left}px`);
+    hero.style.setProperty("--sy", `${e.clientY - r.top}px`);
   });
-  document.querySelectorAll(".magnetic").forEach((b) => {
+
+  // Buttons are pulled slightly towards the pointer.
+  document.querySelectorAll(".magnetic, .contact-card .button").forEach((b) => {
     b.addEventListener("pointermove", (e) => {
       const r = b.getBoundingClientRect();
-      b.style.transform = `translate(${(e.clientX - r.left - r.width / 2) * 0.18}px, ${(e.clientY - r.top - r.height / 2) * 0.25}px)`;
+      b.style.translate = `${(e.clientX - r.left - r.width / 2) * 0.2}px ${(e.clientY - r.top - r.height / 2) * 0.3}px`;
     });
-    b.addEventListener("pointerleave", () => (b.style.transform = ""));
+    b.addEventListener("pointerleave", () => (b.style.translate = ""));
   });
 }
-
-const stage = document.querySelector("[data-stand3d]");
-if (stage) initStand3d(stage, { reduced });
 
 window.addEventListener("scroll", onScroll, { passive: true });
 window.addEventListener("resize", onScroll);

@@ -43,4 +43,35 @@ export const icons = {
     <path d="M78 34v32L48 80V48z" fill="#0a8fd0"/>
     <path d="M33 27l30 14v10" stroke="#0b2540" stroke-width="3" fill="none"/>
     <path d="M26 56l8 4M26 62l8 4" stroke="#fff" stroke-width="3" stroke-linecap="round"/>`),
+  barketa: svg(`
+    <g class="i-rise"><rect x="24" y="22" width="12" height="16" rx="2" fill="#ff7a59"/><rect x="38" y="20" width="12" height="18" rx="2" fill="#ffc94d"/><rect x="52" y="22" width="12" height="16" rx="2" fill="#3ddc97"/><rect x="62" y="24" width="10" height="14" rx="2" fill="#7c6cff"/></g>
+    <path d="M18 38h60v30H18z" fill="#2cc4f4" class="i-pop"/>
+    <path d="M78 38l8-5v30l-8 5z" fill="#0a8fd0"/>
+    <rect x="26" y="46" width="30" height="6" rx="3" fill="#fff"/><circle cx="66" cy="53" r="7" fill="#fff"/>
+    <path d="M16 70h64v6H16zM22 76h6v6h-6zM44 76h8v6h-8zM68 76h6v6h-6z" fill="#0b2540"/>`),
+  figure: svg(`
+    <g class="i-pop"><circle cx="48" cy="24" r="11" fill="#ffc94d"/><path d="M34 40c0-5 6-8 14-8s14 3 14 8v24H34z" fill="#2cc4f4"/>
+    <path d="M34 42 22 54M62 42l12-14" stroke="#2cc4f4" stroke-width="7" stroke-linecap="round"/><circle cx="74" cy="27" r="5" fill="#ff7a59"/></g>
+    <path d="M38 64h8v14h-8zM50 64h8v14h-8z" fill="#0b2540"/>
+    <path d="M28 80h40l-6 6H34z" fill="#0a8fd0"/>`),
+  decoration: svg(`
+    <path d="M12 22c12 10 24 14 36 14s24-4 36-14" stroke="#0b2540" stroke-width="2.5" fill="none"/>
+    <g class="i-swing"><path d="M22 28l6 12h-12z" fill="#ff7a59"/><path d="M40 34l6 12h-12z" fill="#ffc94d"/><path d="M58 34l6 12h-12z" fill="#3ddc97"/><path d="M76 28l6 12h-12z" fill="#7c6cff"/></g>
+    <path class="i-pop" d="M48 52l5 10 11 2-8 8 2 11-10-5-10 5 2-11-8-8 11-2z" fill="#2cc4f4"/>`),
+  pallet: svg(`
+    <g class="i-rise"><rect x="28" y="34" width="40" height="34" rx="3" fill="#e6f6fd"/><path d="M34 42h28M34 50h20M34 58h24" stroke="#9fcfe3" stroke-width="3" stroke-linecap="round"/></g>
+    <path d="M20 22h56v8H28v40h-8z" fill="#2cc4f4" class="i-pop"/>
+    <path d="M76 22v48h-8V30" fill="#0a8fd0"/>
+    <path d="M16 70h64v6H16zM22 76h6v6h-6zM44 76h8v6h-8zM68 76h6v6h-6z" fill="#0b2540"/>`),
+  tray: svg(`
+    <g class="i-rise"><rect x="24" y="30" width="10" height="24" rx="2" fill="#ff7a59"/><rect x="37" y="26" width="10" height="28" rx="2" fill="#ffc94d"/><rect x="50" y="30" width="10" height="24" rx="2" fill="#3ddc97"/><rect x="63" y="28" width="10" height="26" rx="2" fill="#7c6cff"/></g>
+    <path d="M18 50h60l-4 20H22z" fill="#2cc4f4" class="i-pop"/>
+    <path d="M78 50l6-4-4 20-6 4z" fill="#0a8fd0"/>
+    <rect x="28" y="57" width="26" height="5" rx="2.5" fill="#fff"/>`),
+  cube: svg(`
+    <path d="M48 16l30 14-30 14-30-14z" fill="#e6f6fd" class="i-pop"/>
+    <path d="M18 30v36l30 14V44z" fill="#2cc4f4"/>
+    <path d="M78 30v36L48 80V44z" fill="#0a8fd0"/>
+    <circle cx="33" cy="55" r="7" fill="#fff" class="i-rise"/>
+    <path d="M56 56l14-7M56 64l10-5" stroke="#fff" stroke-width="3" stroke-linecap="round"/>`),
 };

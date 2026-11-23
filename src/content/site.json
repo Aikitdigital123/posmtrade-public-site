@@ -1,8 +1,33 @@
 {
   "logo": "/logo.png",
-  "contact": {
-    "email": "",
-    "phone": "",
-    "address": ""
-  }
+  "people": [
+    {
+      "name": { "uk": "Марина Гиндрюк", "cs": "Maryna Gindryuk", "en": "Maryna Gindryuk" },
+      "role": { "uk": "Керівниця компанії", "cs": "Vedoucí společnosti", "en": "Managing director" },
+      "phone": "+380 67 430 01 21",
+      "email": "m.gindryuk@branaldi-sv.com"
+    },
+    {
+      "name": { "uk": "Володимир Гергель", "cs": "Volodymyr Gergel", "en": "Volodymyr Gergel" },
+      "role": { "uk": "Комерційний директор", "cs": "Obchodní ředitel", "en": "Commercial director" },
+      "phone": "+380 67 432 40 35",
+      "email": "v.gergel@branaldi-sv.com"
+    }
+  ],
+  "office": {
+    "phone": "+380 432 55 10 38",
+    "address": {
+      "uk": "вул. С. Зулінського, 30, Вінниця, 21022, Україна",
+      "cs": "S. Zulinskoho 30, 21022 Vinnycja, Ukrajina",
+      "en": "30 S. Zulinskoho St, 21022 Vinnytsia, Ukraine"
+    }
+  },
+  "projectsByYear": [
+    [2021, 225],
+    [2022, 125],
+    [2023, 313],
+    [2024, 345],
+    [2025, 428],
+    [2026, 352]
+  ]
 }

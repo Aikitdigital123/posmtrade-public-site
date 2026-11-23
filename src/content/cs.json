@@ -9,6 +9,7 @@
     "skip": "Přejít na obsah",
     "menu": "Menu",
     "services": "Co děláme",
+    "projects": "Projekty",
     "process": "Jak pracujeme",
     "mockup": "3D maketa",
     "contact": "Kontakt",
@@ -19,10 +20,12 @@
   },
   "hero": {
     "eyebrow": "POS materiály · kartonové displeje · tisk",
-    "title": "Váš produkt <em>vidět</em> v regálu",
+    "title": "Váš produkt <em>na očích</em> v každé prodejně",
     "lead": "Navrhujeme a vyrábíme kartonové displeje, stojany a POS materiály pro maloobchod — od prvního nápadu a 3D makety po tisk, kompletaci a doručení do prodejny.",
     "ctaPrimary": "Co děláme",
-    "ctaSecondary": "Jak pracujeme"
+    "ctaSecondary": "Jak pracujeme",
+    "apart": "Rozložit",
+    "together": "Složit"
   },
   "stats": [
     {
@@ -31,15 +34,14 @@
       "label": "realizovaných projektů"
     },
     {
-      "value": 2021,
+      "value": 6,
       "suffix": "",
-      "label": "rok, od kterého vedeme projekty v naší databázi",
-      "plain": true
+      "label": "kroků — od briefu po doručení"
     },
     {
-      "value": 24,
-      "suffix": "/7",
-      "label": "digitální pomocníci zpracovávají poštu a dokumenty"
+      "value": 10,
+      "suffix": "",
+      "label": "digitálních pomocníků v týmu"
     }
   ],
   "services": {
@@ -76,6 +78,64 @@
         "icon": "box",
         "title": "Přepravní obaly",
         "text": "Krabice, ve kterých displej bezpečně dojede do prodejny a rychle se na místě složí."
+      }
+    ]
+  },
+  "projects": {
+    "eyebrow": "Naše projekty",
+    "title": "Přes 1 700 projektů od roku 2021",
+    "intro": "Každý projekt je vlastní konstrukce pro konkrétní zboží a prodejnu. Vyberte typ a podívejte se, co děláme nejčastěji.",
+    "unit": "projektů",
+    "yearsTitle": "Projekty podle let",
+    "yearsNote": "2026 — stav k listopadu",
+    "types": [
+      {
+        "key": "display",
+        "label": "Displeje",
+        "count": "500+",
+        "text": "Podlahové a pultové displeje s policemi — náš hlavní výrobek."
+      },
+      {
+        "key": "barketa",
+        "label": "Paletové límce",
+        "count": "200+",
+        "text": "Potištěné límce kolem palety se zbožím: akce je vidět z celé prodejny."
+      },
+      {
+        "key": "figure",
+        "label": "Figury",
+        "count": "160+",
+        "text": "Ploché i prostorové figury, figury k pokladně — postavy značky v životní velikosti."
+      },
+      {
+        "key": "box",
+        "label": "Krabice",
+        "count": "160+",
+        "text": "Dárkové, promo a přepravní obaly pro konkrétní akci."
+      },
+      {
+        "key": "decoration",
+        "label": "Dekorace",
+        "count": "100+",
+        "text": "Výzdoba prodejen a zón na svátky, otevření a promo."
+      },
+      {
+        "key": "pallet",
+        "label": "Rámy palet",
+        "count": "80+",
+        "text": "Rámy a půlpalety, které z palety udělají výlohu."
+      },
+      {
+        "key": "tray",
+        "label": "Podnosy",
+        "count": "60+",
+        "text": "Podnosy a traye do regálu i k pokladně — zboží stojí rovně a je vidět."
+      },
+      {
+        "key": "cube",
+        "label": "Kostky a ostrůvky",
+        "count": "60+",
+        "text": "Kostky, ostrůvky a stojany do středu prodejny."
       }
     ]
   },
@@ -216,9 +276,13 @@
   },
   "contact": {
     "eyebrow": "Kontakt",
-    "title": "Máte zboží, které potřebuje pódium?",
-    "text": "Napište nám o zboží a prodejně — navrhneme konstrukci, ukážeme 3D maketu a spočítáme zakázku.",
-    "cta": "Napsat nám"
+    "title": "Pojďme probrat váš projekt",
+    "text": "Napište nebo zavolejte — navrhneme konstrukci, ukážeme 3D maketu a spočítáme zakázku.",
+    "office": "Kancelář",
+    "call": "Zavolat",
+    "write": "Napsat",
+    "copy": "Kopírovat",
+    "copied": "Zkopírováno"
   },
   "footer": {
     "rights": "© 2026 POSMTRADE",
