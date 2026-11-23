@@ -22,3 +22,5 @@ Thumbs.db
 node_modules/
 dist/
 pages/
+test-results/
+playwright-report/

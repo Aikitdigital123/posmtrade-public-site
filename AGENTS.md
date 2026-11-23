@@ -38,6 +38,8 @@ is a copy kept for old links.
    (translate it yourself; Ukrainian first if Marina wrote in Ukrainian).
 3. `npm run check` – builds the site and checks: all 12 public pages exist (OAuth + e-mail footer URLs),
    no broken links, no secrets or private e-mail addresses. It must say `check: OK`.
+   Then `npm test` – Playwright tests on desktop and phone (what they cover: `docs/QA.md`). All must pass;
+   a new interactive element gets its own test. GitHub runs both again before it deploys.
 4. Look at it: `npm run dev` (or a screenshot of `npm run preview`) at desktop and phone width.
 5. Commit with a short message saying what changed for the reader of the site, then `git push` to `main`.
    GitHub Actions builds and deploys in about a minute.

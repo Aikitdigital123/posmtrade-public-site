@@ -28,6 +28,17 @@ jobs:
         run: npm ci
       - name: Build and check (required pages, links, no secrets)
         run: npm run check
+      - name: Install Playwright browser
+        run: npx playwright install --with-deps chromium
+      - name: Playwright tests (desktop + phone)
+        run: npm test
+      - name: Keep the test report when something fails
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 14
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
       - name: Upload built site

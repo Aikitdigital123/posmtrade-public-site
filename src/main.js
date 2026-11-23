@@ -28,12 +28,33 @@ const sections = navLinks.map((a) => document.querySelector(a.hash)).filter(Bool
 const sectionSpy = new IntersectionObserver(
   (entries) => {
     for (const e of entries) {
-      if (e.isIntersecting) navLinks.forEach((a) => a.classList.toggle("is-current", a.hash === `#${e.target.id}`));
+      if (!e.isIntersecting) continue;
+      navLinks.forEach((a) => a.classList.toggle("is-current", a.hash === `#${e.target.id}`));
+      if (!nav?.matches(":hover")) restPill();
     }
   },
   { rootMargin: "-45% 0px -50% 0px" },
 );
 sections.forEach((s) => sectionSpy.observe(s));
+
+// Desktop menu: a pill slides under the hovered item and rests on the current section.
+const pill = document.createElement("span");
+pill.className = "nav-pill";
+pill.setAttribute("aria-hidden", "true");
+nav?.prepend(pill);
+const movePill = (a) => {
+  if (!a || window.matchMedia("(max-width: 920px)").matches) return void pill.classList.remove("is-on");
+  pill.style.width = `${a.offsetWidth}px`;
+  pill.style.transform = `translateX(${a.offsetLeft}px)`;
+  pill.classList.add("is-on");
+};
+const restPill = () => movePill(navLinks.find((a) => a.classList.contains("is-current")));
+navLinks.forEach((a) => {
+  a.addEventListener("pointerenter", () => movePill(a));
+  a.addEventListener("focus", () => movePill(a));
+});
+nav?.addEventListener("pointerleave", restPill);
+window.addEventListener("resize", restPill);
 
 // ---------- Reveal on scroll ----------
 const revealAll = () => document.querySelectorAll(".reveal").forEach((el) => el.classList.add("is-visible"));
@@ -70,12 +91,15 @@ function countUp(el) {
 const stage = document.querySelector("[data-stand3d]");
 if (stage) {
   const stand = initStand3d(stage, { reduced });
+  stage.stand = stand; // used by the Playwright tests
   const btn = stage.querySelector(".stand-toggle");
-  btn?.addEventListener("click", () => {
-    const apart = stand.toggle();
+  // The label always says what the button will do next (also when the stand comes apart by itself).
+  const label = (apart) => {
     btn.textContent = apart ? btn.dataset.together : btn.dataset.apart;
     btn.setAttribute("aria-pressed", String(apart));
-  });
+  };
+  btn?.addEventListener("click", () => label(stand.toggle()));
+  stage.addEventListener("standchange", (e) => btn && label(e.detail.apart));
 }
 
 // ---------- Projects: tabs that play by themselves until the visitor picks one ----------

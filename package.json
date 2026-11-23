@@ -7,9 +7,12 @@
     "dev": "npm run render && vite",
     "build": "npm run render && vite build",
     "preview": "vite preview",
-    "check": "npm run build && node build/check.mjs"
+    "check": "npm run build && node build/check.mjs",
+    "test": "playwright test",
+    "test:ui": "playwright test --ui"
   },
   "devDependencies": {
+    "@playwright/test": "1.57.0",
     "vite": "8.3.8"
   },
   "dependencies": {
