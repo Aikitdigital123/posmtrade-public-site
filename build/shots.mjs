@@ -52,16 +52,16 @@ for (const target of targets) {
     const ctx = await browser.newContext({ ...opts, reducedMotion: "reduce" });
     const tab = await ctx.newPage();
     await tab.goto(origin + (page || "index.html"), { waitUntil: "load" });
-    if (anchor) {
-      const el = tab.locator(`#${anchor}`);
-      if (await el.count()) {
-        // the section starts just under the sticky header
-        await el.first().evaluate((e) => window.scrollTo(0, e.getBoundingClientRect().top + window.scrollY - 20));
-      }
-    }
-    await tab.waitForTimeout(400);
     const name = `${String(++n).padStart(2, "0")}-${kind}-${(page || "index").replace(/[/.]/g, "-")}${anchor ? `-${anchor}` : ""}.jpg`;
-    await tab.screenshot({ path: join(out, name), type: "jpeg", quality: 80 });
+    const section = anchor ? tab.locator(`#${anchor}`).first() : null;
+    await tab.waitForTimeout(400);
+    if (section && (await section.count())) {
+      // the whole section, so a change at its end (e.g. the office line under the contacts) is in the picture
+      await tab.addStyleTag({ content: ".site-header{position:static!important}.skip-link,.scroll-progress{display:none!important}" });
+      await section.screenshot({ path: join(out, name), type: "jpeg", quality: 80 });
+    } else {
+      await tab.screenshot({ path: join(out, name), type: "jpeg", quality: 80 });
+    }
     written.push(join(out, name));
     await ctx.close();
   }
