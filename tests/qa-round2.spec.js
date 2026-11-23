@@ -119,15 +119,6 @@ test("small blue texts, buttons and the contact banner meet WCAG AA contrast", a
   }
 });
 
-test("agent names are readable in Czech and English (Latin letters)", async ({ page }) => {
-  for (const dir of ["cs/", "en/"]) {
-    await page.goto(dir);
-    const names = await page.locator(".agent-card h3").allTextContents();
-    expect(names).toHaveLength(10);
-    for (const n of names) expect(n).toMatch(/^[\p{Script=Latin}\s]+$/u);
-  }
-});
-
 test("legal pages have their own description and every page names its language versions", async ({ page }) => {
   await page.goto("privacy.html");
   const home = await page.request.get("").then((r) => r.text());

@@ -16,7 +16,7 @@
     "home": "Úvod",
     "privacy": "Ochrana soukromí",
     "terms": "Podmínky",
-    "agents": "Agenti"
+    "agents": "Automatizace"
   },
   "hero": {
     "eyebrow": "POS materiály · kartonové displeje · tisk",
@@ -41,7 +41,7 @@
     {
       "value": 10,
       "suffix": "",
-      "label": "digitálních pomocníků v týmu"
+      "label": "digitálních pomocníků v provozu"
     }
   ],
   "services": {
@@ -138,7 +138,34 @@
         "text": "Kostky, ostrůvky a stojany do středu prodejny."
       }
     ],
-    "partial": "led–lis"
+    "partial": "led–lis",
+    "showcase": {
+      "title": "Nedávno realizované",
+      "hint": "Najeďte nebo klepněte — jiný pohled",
+      "items": [
+        {
+          "key": "bobsnail",
+          "name": "Bob Snail",
+          "type": "Podlahový stojan s topperem",
+          "size": "477 × 306 × 1575 mm",
+          "shelves": "4 police",
+          "date": "červen 2026"
+        },
+        {
+          "key": "jacobs",
+          "name": "Jacobs",
+          "type": "Podlahový stojan s topperem",
+          "size": "620 × 253 × 1648 mm",
+          "shelves": "4 police",
+          "date": "duben 2025"
+        }
+      ],
+      "labels": {
+        "size": "Rozměry",
+        "shelves": "Police",
+        "date": "Rok"
+      }
+    }
   },
   "process": {
     "eyebrow": "Jak pracujeme",
@@ -191,71 +218,67 @@
     "3D maketa"
   ],
   "agents": {
-    "eyebrow": "Naši agenti",
-    "title": "Digitální pomocníci, kteří pracují s týmem",
-    "intro": "POSMTRADE pomáhá oprávněným organizacím automatizovat zpracování firemní e‑mailové komunikace a dokumentů. Digitální pomocníci třídí e‑maily, připravují výkazy, etikety a výpočty — pouze v rozsahu schváleného přístupu společnosti.",
+    "eyebrow": "Digitální pomocníci",
+    "title": "Automatizace ověřená v naší práci",
+    "intro": "V POSMTRADE denně pracují vlastní digitální pomocníci: zpracovávají firemní e‑mailovou komunikaci a dokumenty — pouze v rozsahu schváleného přístupu společnosti. Ověřili jsme je ve vlastní výrobě a dodáváme taková řešení i dalším firmám.",
+    "proven": "Ověřeno v každodenní práci",
     "items": [
       {
-        "avatar": "galochka",
-        "name": "Paní Haločka",
-        "role": "logistika",
-        "text": "Kontroluje logistické e‑maily a vyžádá si, co chybí."
+        "icon": "galochka",
+        "title": "Logistika",
+        "text": "Kontrolují logistické e‑maily a vyžádají si, co chybí."
       },
       {
-        "avatar": "zvitnyk",
-        "name": "Zvitnyk",
-        "role": "výkazy",
-        "text": "Sestavuje výkazy a dodací listy a připomene, když něco chybí."
+        "icon": "zvitnyk",
+        "title": "Výkazy",
+        "text": "Sestavují výkazy a dodací listy a připomenou, když něco chybí."
       },
       {
-        "avatar": "nalipka",
-        "name": "Nalipka",
-        "role": "etikety",
+        "icon": "nalipka",
+        "title": "Etikety",
         "text": "Připraví etikety a značení z tabulky Excel."
       },
       {
-        "avatar": "formatynka",
-        "name": "Formatynka",
-        "role": "doklady",
-        "text": "Převádí faktury a výpisy z PDF do přehledných tabulek Excel."
+        "icon": "formatynka",
+        "title": "Doklady",
+        "text": "Převádějí faktury a výpisy z PDF do přehledných tabulek Excel."
       },
       {
-        "avatar": "mirka",
-        "name": "Mirka",
-        "role": "výpočty",
-        "text": "Rychle přepočítá m² na běžné metry a zpět."
+        "icon": "mirka",
+        "title": "Výpočty",
+        "text": "Rychle přepočítají m² na běžné metry a zpět."
       },
       {
-        "avatar": "kramar",
-        "name": "Kramar",
-        "role": "nákup",
+        "icon": "kramar",
+        "title": "Nákup",
         "text": "Z dokladu dodavatele založí příjemku materiálu na sklad."
       },
       {
-        "avatar": "vizualchik",
-        "name": "Vizualčyk",
-        "role": "hledání projektů",
-        "text": "Najde minulé projekty podle fotky nebo popisu."
+        "icon": "vizualchik",
+        "title": "Hledání projektů",
+        "text": "Najdou minulé projekty podle fotky nebo popisu."
       },
       {
-        "avatar": "maketchyk",
-        "name": "Maketčyk",
-        "role": "3D makety",
+        "icon": "maketchyk",
+        "title": "3D makety",
         "text": "Z výkresu a grafiky složí 3D maketu displeje."
       },
       {
-        "avatar": "dogovir",
-        "name": "Dohovirnyk",
-        "role": "smlouvy",
+        "icon": "dogovir",
+        "title": "Smlouvy",
         "text": "Ověří, že zákazník má platnou smlouvu."
       },
       {
-        "avatar": "vchasnyk",
-        "name": "Včasnyk",
-        "role": "oběh dokladů",
-        "text": "Hlídá elektronické doklady a jejich podpisy."
+        "icon": "vchasnyk",
+        "title": "Oběh dokladů",
+        "text": "Hlídají elektronické doklady a jejich podpisy."
       }
     ],
+    "cta": {
+      "title": "Chcete takového pomocníka i vy?",
+      "text": "Nastavíme digitálního pomocníka na procesy vaší firmy.",
+      "button": "Probrat"
+    },
     "principlesTitle": "Méně rutiny. Více času na rozhodnutí.",
     "points": [
       {

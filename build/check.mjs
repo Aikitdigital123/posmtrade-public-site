@@ -58,6 +58,14 @@ for (const file of sourceFiles) {
   }
 }
 
+// Internal agent names are not for the public (owner 2026-11-23): the site describes what the assistants do.
+// (names that are also ordinary words – наліпка "sticker", мірка, крамар – are left out)
+const INTERNAL_NAMES = /Галочк|Звітник|Форматинк|Візуальчик|Макетчик|Договірник|Вчасник|Конструктерчик|Технобро|Halo(?:ch|č)k|Zvitnyk|Formatynk|Vizual(?:ch|č)yk|Maket(?:ch|č)yk|Dohovirnyk|V(?:ch|č)asnyk|Technobro/u;
+for (const file of walk(dist).filter((f) => f.endsWith(".html"))) {
+  const m = readFileSync(file, "utf8").match(INTERNAL_NAMES);
+  if (m) problems.push(`internal agent name "${m[0]}" in ${relative(dist, file)}`);
+}
+
 if (problems.length) {
   console.error(`check: ${problems.length} problem(s)\n - ${problems.join("\n - ")}`);
   process.exit(1);

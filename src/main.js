@@ -162,6 +162,13 @@ if (proj) {
   if (auto) requestAnimationFrame(loop);
 }
 
+// ---------- Delivered stands: tap or Enter shows the other view ----------
+document.querySelectorAll(".case").forEach((c) => {
+  const flip = () => c.classList.toggle("is-flipped");
+  c.addEventListener("click", flip);
+  c.addEventListener("keydown", (e) => (e.key === "Enter" || e.key === " ") && (e.preventDefault(), flip()));
+});
+
 // ---------- Copy e-mail ----------
 document.querySelectorAll("[data-copy]").forEach((b) => {
   const label = b.textContent;

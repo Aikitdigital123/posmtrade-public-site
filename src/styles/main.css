@@ -2917,3 +2917,204 @@ li {
 .person-line > svg {
   margin-right: 0;
 }
+
+/* ---------- Recently delivered stands ---------- */
+.cases {
+  margin-top: 24px;
+}
+
+.cases-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 6px 18px;
+  margin-bottom: 14px;
+}
+
+.cases-head h3 {
+  font-size: 1.3rem;
+}
+
+.cases-head span {
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.cases-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+}
+
+.case {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  overflow: hidden;
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: inset 0 0 0 1px var(--line);
+  cursor: pointer;
+  outline-offset: 4px;
+}
+
+.case:hover,
+.case:focus-visible,
+.case.is-flipped {
+  box-shadow:
+    inset 0 0 0 1px var(--blue-bright),
+    var(--shadow);
+}
+
+.case-art {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  background:
+    radial-gradient(ellipse 60% 8% at 50% 92%, rgba(11, 37, 64, 0.22), transparent 70%),
+    radial-gradient(circle at 50% 35%, #fff, transparent 65%),
+    linear-gradient(160deg, var(--blue-soft), #eceaff);
+  perspective: 900px;
+}
+
+.case-img {
+  position: absolute;
+  inset: 4% 0 6%;
+  width: 100%;
+  height: 90%;
+  object-fit: contain;
+  transition:
+    opacity 0.5s var(--ease),
+    transform 0.7s var(--ease);
+}
+
+.case-b {
+  opacity: 0;
+  transform: rotateY(-25deg) scale(0.96);
+}
+
+.case:hover .case-a,
+.case:focus-visible .case-a,
+.case.is-flipped .case-a {
+  opacity: 0;
+  transform: rotateY(25deg) scale(0.96);
+}
+
+.case:hover .case-b,
+.case:focus-visible .case-b,
+.case.is-flipped .case-b {
+  opacity: 1;
+  transform: none;
+}
+
+.case-info {
+  padding: 22px 24px;
+}
+
+.case-info h4 {
+  margin: 0;
+  font: 700 1.25rem/1.2 var(--display);
+}
+
+.case-info > p {
+  margin: 4px 0 14px;
+  color: var(--blue-text);
+  font-weight: 700;
+}
+
+.case-info dl {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+}
+
+.case-info dl div {
+  display: grid;
+  gap: 1px;
+}
+
+.case-info dt {
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.case-info dd {
+  margin: 0;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 920px) {
+  .cases-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .case {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---------- Automation: proven badge and call to action ---------- */
+.proven-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 18px 0 0;
+  padding: 6px 14px 6px 6px;
+  border-radius: 999px;
+  font-weight: 700;
+  color: #fff;
+  background: rgba(61, 220, 151, 0.16);
+  box-shadow: inset 0 0 0 1px rgba(61, 220, 151, 0.5);
+}
+
+.proven-badge span {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  color: var(--navy);
+  background: var(--mint);
+}
+
+.agent-card h3 {
+  margin-bottom: 6px;
+}
+
+.agents-cta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px 24px;
+  margin-top: 22px;
+  padding: 24px 28px;
+  border-radius: var(--radius);
+  background: linear-gradient(120deg, rgba(44, 196, 244, 0.18), rgba(124, 108, 255, 0.22));
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.16);
+  color: #fff;
+}
+
+.agents-cta h3 {
+  font-size: 1.25rem;
+}
+
+.agents-cta p {
+  margin: 4px 0 0;
+  color: #cfe3f1;
+}
+
+.legal-operator a {
+  font-weight: 700;
+  color: var(--blue-text);
+}
+
+.legal-date {
+  font-size: 0.9rem;
+}

@@ -180,18 +180,39 @@ function home(c, lang) {
       </article>`,
     )
     .join("");
-  // Drawn icon per agent (build/agent-icons.mjs) – never photos.
+  // What the digital assistants do – by task, never by (internal) name.
   const agents = c.agents.items
-    .map((a, i) => {
-      const face = agentIcons[a.avatar] ?? "";
-      return `<article class="agent-card reveal" style="--i:${i % 5}">
-        <div class="agent-face">${face}</div>
-        <h3>${esc(a.name)}</h3>
-        <span class="agent-role">${esc(a.role)}</span>
+    .map(
+      (a, i) => `<article class="agent-card reveal" style="--i:${i % 5}">
+        <div class="agent-face">${agentIcons[a.icon] ?? ""}</div>
+        <h3>${esc(a.title)}</h3>
         <p>${esc(a.text)}</p>
-      </article>`;
-    })
+      </article>`,
+    )
     .join("");
+
+  // Recently delivered stands: two renders each (3/4 view and front), the second shows on hover/tap.
+  const sc = c.projects.showcase;
+  const showcase = sc.items
+    .map(
+      (p, i) => `<article class="case reveal" style="--i:${i}" tabindex="0" aria-label="${esc(p.name)} — ${esc(p.type)}">
+        <div class="case-art">
+          <img class="case-img case-a" src="/projects/${p.key}-hero.webp" alt="${esc(p.name)} — ${esc(p.type)}" width="640" height="800" loading="lazy">
+          <img class="case-img case-b" src="/projects/${p.key}-front.webp" alt="" width="640" height="800" loading="lazy">
+        </div>
+        <div class="case-info">
+          <h4>${esc(p.name)}</h4>
+          <p>${esc(p.type)}</p>
+          <dl>
+            <div><dt>${esc(sc.labels.size)}</dt><dd>${esc(p.size)}</dd></div>
+            <div><dt>${esc(sc.labels.shelves)}</dt><dd>${esc(p.shelves)}</dd></div>
+            <div><dt>${esc(sc.labels.date)}</dt><dd>${esc(p.date)}</dd></div>
+          </dl>
+        </div>
+      </article>`,
+    )
+    .join("");
+
   // Projects: tabs with the project types (real counts from the project archive) + projects per year.
   const pt = c.projects.types;
   const tabs = pt
@@ -298,6 +319,10 @@ function home(c, lang) {
         <div class="proj-tabs" role="tablist">${tabs}</div>
         <div class="proj-stage">${panels}</div>
       </div>
+      <div class="cases">
+        <div class="cases-head reveal"><h3>${esc(sc.title)}</h3><span>${esc(sc.hint)}</span></div>
+        <div class="cases-grid">${showcase}</div>
+      </div>
       <div class="years reveal">
         <div class="years-head"><h3>${esc(c.projects.yearsTitle)}</h3><span>${esc(c.projects.yearsNote)}</span></div>
         <div class="years-chart">${bars}</div>
@@ -329,8 +354,13 @@ function home(c, lang) {
         <p class="eyebrow">${esc(c.agents.eyebrow)}</p>
         <h2 class="split">${words(c.agents.title)}</h2>
         <p class="section-intro">${esc(c.agents.intro)}</p>
+        <p class="proven-badge"><span aria-hidden="true">✓</span>${esc(c.agents.proven)}</p>
       </div>
       <div class="agent-grid">${agents}</div>
+      <div class="agents-cta reveal">
+        <div><h3>${esc(c.agents.cta.title)}</h3><p>${esc(c.agents.cta.text)}</p></div>
+        <a class="button" href="#contact">${esc(c.agents.cta.button)}<span class="arrow" aria-hidden="true">→</span></a>
+      </div>
       <h3 class="principles-title reveal split">${words(c.agents.principlesTitle)}</h3>
       <div class="auto-grid">${auto}</div>
       <p class="auto-note reveal">${esc(c.agents.dataNote)}

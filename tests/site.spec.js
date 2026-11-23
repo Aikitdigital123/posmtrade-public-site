@@ -230,11 +230,42 @@ test.describe("illustrations", () => {
 });
 
 test.describe("content rules", () => {
-  test("agents are drawn icons, never photos", async ({ page }) => {
+  test("assistants: ten drawn task cards, no photos, no internal names, a call to action", async ({ page }) => {
+    for (const dir of ["", "cs/", "en/"]) {
+      await page.goto(dir);
+      await expect(page.locator(".agent-card")).toHaveCount(10);
+      await expect(page.locator(".agent-card img")).toHaveCount(0);
+      await expect(page.locator(".agent-card svg")).toHaveCount(10);
+      const text = await page.locator("#agents").innerText();
+      expect(text).not.toMatch(/Галочк|Звітник|Наліпк|Halo[cč]k|Zvitnyk|Nalipk|Maket/u);
+      await expect(page.locator(".agents-cta a[href='#contact']")).toBeVisible();
+      await expect(page.locator(".proven-badge")).toBeVisible();
+    }
+  });
+
+  test("recently delivered: two stands with real renders and their facts; tap shows the other view", async ({ page }) => {
     await page.goto("");
-    await expect(page.locator(".agent-card")).toHaveCount(10);
-    await expect(page.locator(".agent-card img")).toHaveCount(0);
-    await expect(page.locator(".agent-card svg")).toHaveCount(10);
+    const cases = page.locator(".case");
+    await expect(cases).toHaveCount(2);
+    await cases.first().scrollIntoViewIfNeeded();
+    for (const img of await page.locator(".case-img").all()) {
+      await img.scrollIntoViewIfNeeded();
+      await expect.poll(() => img.evaluate((i) => i.complete && i.naturalWidth)).toBeGreaterThan(0);
+    }
+    await expect(cases.first()).toContainText("477 × 306 × 1575");
+    await expect(cases.nth(1)).toContainText("620 × 253 × 1648");
+    await cases.first().click();
+    await expect(cases.first()).toHaveClass(/is-flipped/);
+  });
+
+  test("legal pages name the operator (POSMTRADE) with a contact and a date", async ({ page }) => {
+    for (const p of ["privacy.html", "terms.html", "cs/privacy.html", "en/terms.html"]) {
+      await page.goto(p);
+      const op = page.locator(".legal-operator");
+      await expect(op).toContainText("POSMTRADE");
+      await expect(op.locator("a[href^='tel:']")).toHaveCount(1);
+      await expect(op.locator(".legal-date")).toContainText("2026");
+    }
   });
 
   test("every image has alt text and every button a name", async ({ page }) => {
