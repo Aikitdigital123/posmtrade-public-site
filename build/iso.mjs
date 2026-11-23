@@ -109,10 +109,8 @@ export function svg(id, groups, bounds) {
   const minY = Math.min(...ys) - pad;
   const w = Math.max(...xs) - minX + pad;
   const h = Math.max(...ys) - minY + pad;
-  const side = Math.max(w, h);
-  const vx = minX - (side - w) / 2;
-  const vy = minY - (side - h) / 2;
-  return `<svg viewBox="${vx.toFixed(1)} ${vy.toFixed(1)} ${side.toFixed(1)} ${side.toFixed(1)}" aria-hidden="true" data-iso="${id}">
+  // tight viewBox: the drawing keeps its own proportions and CSS fits it into the frame
+  return `<svg viewBox="${minX.toFixed(1)} ${minY.toFixed(1)} ${w.toFixed(1)} ${h.toFixed(1)}" aria-hidden="true" data-iso="${id}">
   <defs><radialGradient id="iso-shadow-${id}"><stop offset="0" stop-color="#0b2540" stop-opacity=".28"/><stop offset="1" stop-color="#0b2540" stop-opacity="0"/></radialGradient></defs>
   ${groups.join("\n  ").replaceAll("#iso-shadow-ID", `#iso-shadow-${id}`)}
 </svg>`;

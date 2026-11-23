@@ -23,8 +23,10 @@ const variants = [
 ];
 const pageNames = ["index", "privacy", "terms"];
 
+// A one-letter word (в, з, і, v, s, a, …) never ends a line: it is glued to the next word.
+const nb = (s) => String(s).replace(/(?<=^|[\s(«„"])([A-Za-zА-Яа-яІіЇїЄєҐґ]) /gu, "$1\u00a0");
 const esc = (s) =>
-  String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
+  nb(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
 // Fields that allow a little inline markup (<em>) are marked with html(); everything else is escaped.
 const html = (s) => String(s).replace(/<(?!\/?em>)/g, "&lt;");
 
@@ -86,14 +88,14 @@ function footer(c) {
 
 // Headings appear word by word: every word sits in a mask and slides up. <em> keeps its gradient.
 function words(text, start = 0) {
-  const tokens = String(text).match(/<em>.*?<\/em>|\S+/g) ?? [];
+  const tokens = nb(text).match(/<em>.*?<\/em>|[^ ]+/g) ?? [];
   let i = start;
   return tokens
     .map((tok) => {
       const em = tok.startsWith("<em>");
       const inner = em ? tok.slice(4, -5) : tok;
       return inner
-        .split(/\s+/)
+        .split(/ +/)
         .map((w) => `<span class="w"><span class="${em ? "em" : ""}" style="--w:${i++}">${esc(w)}</span></span>`)
         .join(" ");
     })
@@ -136,6 +138,9 @@ const dieline = `
   <rect class="dl-laser" x="0" y="0" width="3" height="430" rx="1.5" fill="#ff7a59"/>
   <g class="dl-chip"><rect x="404" y="350" width="112" height="44" rx="22" fill="#0b2540"/><text x="460" y="378" text-anchor="middle">→ 3D</text></g>
 </svg>`;
+
+const ICON_PHONE = `<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>`;
+const ICON_MAIL = `<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>`;
 
 function home(c, lang) {
   const stats = c.stats
@@ -198,8 +203,8 @@ function home(c, lang) {
     .join("");
   const panels = pt
     .map(
-      (t, i) => `<div class="proj-panel${i === 0 ? " is-active" : ""}" role="tabpanel" id="pp-${t.key}" aria-labelledby="pt-${t.key}">
-        <div class="proj-art">${icons[t.key === "display" ? "floor" : t.key] ?? ""}</div>
+      (t, i) => `<div class="proj-panel${i === 0 ? " is-active" : ""}" role="tabpanel" tabindex="0" id="pp-${t.key}" aria-labelledby="pt-${t.key}">
+        <div class="proj-art">${(icons[t.key === "display" ? "floor" : t.key] ?? "").replaceAll("iso-shadow-", "iso-shadow-p-")}</div>
         <div class="proj-info"><strong class="proj-count">${esc(t.count)}</strong><span class="proj-unit">${esc(c.projects.unit)}</span>
         <h3>${esc(t.label)}</h3><p>${esc(t.text)}</p></div>
       </div>`,
@@ -210,7 +215,7 @@ function home(c, lang) {
   const bars = years
     .map(
       ([y, n], i) => `<div class="year" style="--h:${((n / maxYear) * 100).toFixed(1)}%;--i:${i}">
-        <span class="year-val">${n}</span><span class="year-bar"></span><span class="year-label">${y}</span>
+        <span class="year-val">${n}</span><span class="year-bar"></span><span class="year-label">${y}${i === years.length - 1 ? `<small>${esc(c.projects.partial)}</small>` : ""}</span>
       </div>`,
     )
     .join("");
@@ -229,8 +234,8 @@ function home(c, lang) {
         <div class="person-body">
           <h3>${esc(name)}</h3>
           <p class="person-role">${esc(p.role[lang])}</p>
-          <a class="person-line" href="${telHref(p.phone)}"><span aria-hidden="true">☎</span>${esc(p.phone)}</a>
-          <span class="person-line"><a href="mailto:${esc(p.email)}"><span aria-hidden="true">✉</span>${esc(p.email)}</a>
+          <a class="person-line" href="${telHref(p.phone)}">${ICON_PHONE}${esc(p.phone)}</a>
+          <span class="person-line"><a href="mailto:${esc(p.email)}">${ICON_MAIL}${esc(p.email)}</a>
             <button class="copy" type="button" data-copy="${esc(p.email)}" data-done="${esc(c.contact.copied)}" aria-label="${esc(c.contact.copy)}: ${esc(p.email)}">${esc(c.contact.copy)}</button></span>
           <div class="person-actions">
             <a class="button small" href="${telHref(p.phone)}">${esc(c.contact.call)}</a>
@@ -248,7 +253,10 @@ function home(c, lang) {
     <section class="hero">
       <div class="hero-bg" aria-hidden="true"><span class="blob b1"></span><span class="blob b2"></span><span class="dieline"></span><span class="spot"></span></div>
       <div class="hero-copy">
-        <p class="eyebrow hero-in" style="--i:0">${esc(c.hero.eyebrow)}</p>
+        <p class="eyebrow hero-in" style="--i:0">${c.hero.eyebrow
+          .split(" · ")
+          .map((t) => `<span class="eb-seg">${esc(t)}</span>`)
+          .join("")}</p>
         <h1 class="split">${words(c.hero.title)}</h1>
         <p class="lead hero-in" style="--i:3">${esc(c.hero.lead)}</p>
         <div class="hero-links hero-in" style="--i:4">
@@ -348,19 +356,33 @@ function legal(lang, page) {
   </main>`;
 }
 
+const SITE = "https://aikitdigital123.github.io/posmtrade-public-site/";
+const pathOf = (lang, page) => `${lang === "uk" ? "" : `${lang}/`}${page === "index" ? "" : `${page}.html`}`;
+
 function render({ lang, dir }, page) {
   const c = t[lang];
   const up = dir ? "../" : "";
   const title = page === "index" ? c.meta.title : `${c.nav[page]} — POSMTRADE`;
+  const description =
+    page === "index"
+      ? c.meta.description
+      : (read(`src/content/legal/${lang}-${page}.html`).match(/<p class="lead">([^<]+)<\/p>/)?.[1] ?? c.meta.description);
+  const alternates = langs
+    .map((l) => `<link rel="alternate" hreflang="${l}" href="${SITE}${pathOf(l, page)}">`)
+    .join("\n  ");
   return `<!doctype html>
 <html lang="${lang}">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="${esc(c.meta.description)}">
+  <meta name="description" content="${esc(description)}">
+  <link rel="canonical" href="${SITE}${pathOf(lang, page)}">
+  ${alternates}
+  <link rel="alternate" hreflang="x-default" href="${SITE}${pathOf("uk", page)}">
+  <meta property="og:url" content="${SITE}${pathOf(lang, page)}">
   <meta name="theme-color" content="#0a8fd0">
   <meta property="og:title" content="${esc(title)}">
-  <meta property="og:description" content="${esc(c.meta.description)}">
+  <meta property="og:description" content="${esc(description)}">
   <title>${esc(title)}</title>
   <link rel="icon" type="image/png" href="${site.logo}">
   <link rel="apple-touch-icon" href="${site.logo}">

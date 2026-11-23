@@ -3,7 +3,7 @@
   "label": "CZ",
   "meta": {
     "title": "POSMTRADE — POS materiály a kartonové displeje",
-    "description": "POSMTRADE navrhuje a vyrábí kartonové displeje, stojany a POS materiály pro maloobchod: od konstrukce a 3D maketu po tisk, kompletaci a doručení."
+    "description": "POSMTRADE navrhuje a vyrábí kartonové displeje, stojany a POS materiály pro maloobchod: od konstrukce a 3D makety po tisk, kompletaci a doručení."
   },
   "nav": {
     "skip": "Přejít na obsah",
@@ -47,12 +47,12 @@
   "services": {
     "eyebrow": "Co děláme",
     "title": "Vše, co pomáhá prodávat v místě prodeje",
-    "intro": "Každý výrobek konstruujeme pro konkrétní zboží, regál a prodejnu — pevný, snadno složitelný a dobře vypadající.",
+    "intro": "Každý výrobek konstruujeme pro konkrétní zboží, regál a prodejnu: pevný, snadno sestavitelný a vzhledný.",
     "items": [
       {
         "icon": "floor",
         "title": "Podlahové displeje",
-        "text": "Stojany s policemi, boky a topperem: unesou zboží a složí se bez nářadí."
+        "text": "Stojany s policemi, boky a topperem: unesou zboží a sestaví se bez nářadí."
       },
       {
         "icon": "table",
@@ -62,7 +62,7 @@
       {
         "icon": "topper",
         "title": "Toppery a branding",
-        "text": "Tvarované toppery, boční panely a sokly s plnobarevným tiskem, vidět zdaleka."
+        "text": "Tvarované toppery, boční panely a sokly s plnobarevným tiskem, které jsou vidět zdaleka."
       },
       {
         "icon": "shelf",
@@ -77,7 +77,7 @@
       {
         "icon": "box",
         "title": "Přepravní obaly",
-        "text": "Krabice, ve kterých displej bezpečně dojede do prodejny a rychle se na místě složí."
+        "text": "Krabice, ve kterých displej bezpečně dojede do prodejny a rychle se na místě sestaví."
       }
     ]
   },
@@ -105,7 +105,7 @@
         "key": "figure",
         "label": "Figury",
         "count": "160+",
-        "text": "Ploché i prostorové figury, figury k pokladně — postavy značky v životní velikosti."
+        "text": "Ploché i prostorové figury: postavy značky v životní velikosti i figury k pokladně."
       },
       {
         "key": "box",
@@ -129,7 +129,7 @@
         "key": "tray",
         "label": "Podnosy",
         "count": "60+",
-        "text": "Podnosy a traye do regálu i k pokladně — zboží stojí rovně a je vidět."
+        "text": "Podnosy do regálu i k pokladně — zboží stojí rovně a je vidět."
       },
       {
         "key": "cube",
@@ -137,7 +137,8 @@
         "count": "60+",
         "text": "Kostky, ostrůvky a stojany do středu prodejny."
       }
-    ]
+    ],
+    "partial": "led–lis"
   },
   "process": {
     "eyebrow": "Jak pracujeme",
@@ -165,7 +166,7 @@
       },
       {
         "title": "Doručení",
-        "text": "Odešleme zakázku i doklady — bez zbytečných e-mailů a ruční rutiny."
+        "text": "Odešleme zakázku i doklady — bez zbytečných e‑mailů a ruční rutiny."
       }
     ]
   },
@@ -192,65 +193,65 @@
   "agents": {
     "eyebrow": "Naši agenti",
     "title": "Digitální pomocníci, kteří pracují s týmem",
-    "intro": "POSMTRADE pomáhá oprávněným organizacím automatizovat zpracování firemní e-mailové komunikace a dokumentů. Digitální pomocníci třídí e-maily, připravují výkazy, etikety a výpočty — pouze v rozsahu schváleného přístupu společnosti.",
+    "intro": "POSMTRADE pomáhá oprávněným organizacím automatizovat zpracování firemní e‑mailové komunikace a dokumentů. Digitální pomocníci třídí e‑maily, připravují výkazy, etikety a výpočty — pouze v rozsahu schváleného přístupu společnosti.",
     "items": [
       {
         "avatar": "galochka",
-        "name": "Пані Галочка",
+        "name": "Paní Haločka",
         "role": "logistika",
-        "text": "Kontroluje logistické e-maily a vyžádá si, co chybí."
+        "text": "Kontroluje logistické e‑maily a vyžádá si, co chybí."
       },
       {
         "avatar": "zvitnyk",
-        "name": "Звітник",
+        "name": "Zvitnyk",
         "role": "výkazy",
-        "text": "Sestavuje výkazy a výdejky a připomene, když něco chybí."
+        "text": "Sestavuje výkazy a dodací listy a připomene, když něco chybí."
       },
       {
         "avatar": "nalipka",
-        "name": "Наліпка",
+        "name": "Nalipka",
         "role": "etikety",
         "text": "Připraví etikety a značení z tabulky Excel."
       },
       {
         "avatar": "formatynka",
-        "name": "Форматинка",
+        "name": "Formatynka",
         "role": "doklady",
         "text": "Převádí faktury a výpisy z PDF do přehledných tabulek Excel."
       },
       {
         "avatar": "mirka",
-        "name": "Мірка",
+        "name": "Mirka",
         "role": "výpočty",
         "text": "Rychle přepočítá m² na běžné metry a zpět."
       },
       {
         "avatar": "kramar",
-        "name": "Крамар",
+        "name": "Kramar",
         "role": "nákup",
-        "text": "Z dokladu dodavatele připraví nákup materiálu do skladu."
+        "text": "Z dokladu dodavatele založí příjemku materiálu na sklad."
       },
       {
         "avatar": "vizualchik",
-        "name": "Візуальчик",
+        "name": "Vizualčyk",
         "role": "hledání projektů",
         "text": "Najde minulé projekty podle fotky nebo popisu."
       },
       {
         "avatar": "maketchyk",
-        "name": "Макетчик",
+        "name": "Maketčyk",
         "role": "3D makety",
         "text": "Z výkresu a grafiky složí 3D maketu displeje."
       },
       {
         "avatar": "dogovir",
-        "name": "Договірник",
+        "name": "Dohovirnyk",
         "role": "smlouvy",
         "text": "Ověří, že zákazník má platnou smlouvu."
       },
       {
         "avatar": "vchasnyk",
-        "name": "Вчасник",
+        "name": "Včasnyk",
         "role": "oběh dokladů",
         "text": "Hlídá elektronické doklady a jejich podpisy."
       }
@@ -277,7 +278,7 @@
   "contact": {
     "eyebrow": "Kontakt",
     "title": "Pojďme probrat váš projekt",
-    "text": "Napište nebo zavolejte — navrhneme konstrukci, ukážeme 3D maketu a spočítáme zakázku.",
+    "text": "Napište nebo zavolejte — navrhneme konstrukci, ukážeme 3D maketu a připravíme cenovou nabídku.",
     "office": "Kancelář",
     "call": "Zavolat",
     "write": "Napsat",

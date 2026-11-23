@@ -12,12 +12,12 @@ const H = 310; // height of sides and back: y from -155 to 155
 const D = 96; // depth: z from -48 to 48
 const BASE_H = 30; // base (plinth) at the bottom front: y 125..155
 const STRIP_H = 22; // printed strip under the front edge of every shelf
-const SHELVES = [-86, -24, 38, 100]; // shelf top surfaces; lowest strip ends at 122, above the base (125)
+const SHELVES = [-86, -24, 38, 103]; // shelf top surfaces; the lowest strip ends exactly on the base (125)
 const PRODUCT = { w: 38, d: 30, z: 2, gap: 50 }; // three boxes per shelf, x = -50, 0, 50
 const COLORS = [
   ["#ff7a59", "#ffc94d", "#3ddc97"],
   ["#7c6cff", "#ff7a59", "#ffc94d"],
-  ["#3ddc97", "#0b2540", "#ff7a59"],
+  ["#3ddc97", "#ff5fa2", "#ff7a59"],
   ["#ffc94d", "#7c6cff", "#3ddc97"],
 ];
 const productHeight = (level, j) => 34 + ((level + j) % 3) * 8; // 34 / 42 / 50 – always below the next shelf
@@ -29,7 +29,7 @@ const APART = {
   topper: [0, -55, -60],
   base: [0, 36, 80],
   level: (i) => [0, (i - 1.5) * 22, 110], // levels spread a little vertically, all move forward together
-  lift: -10, // products rise a little above their shelf when apart
+  lift: 0, // products stay on their shelf: the level moves as one unit
   scale: 0.16, // the whole stand shrinks a little when apart, so every part stays in the frame
 };
 
@@ -72,14 +72,15 @@ export function buildParts() {
     const ex = APART.level(i);
     const delay = 0.55 + i * 0.12;
     p.push(face("p-shelf", W, D, `translate3d(0,${y}px,0) rotateX(90deg)`, [0, 1, 0], ex, [0, 0, 520], delay));
-    p.push(face("p-strip", W + 4, STRIP_H, `translate3d(0,${y + STRIP_H / 2}px,${D / 2}px)`, [0, 0, 1], ex, [0, 0, 520], delay, "<i></i><b></b>"));
+    p.push(face("p-strip", W, STRIP_H, `translate3d(0,${y + STRIP_H / 2}px,${D / 2}px)`, [0, 0, 1], ex, [0, 0, 520], delay, "<i></i><b></b>"));
     const exProduct = [ex[0], ex[1] + APART.lift, ex[2]];
     COLORS[i].forEach((color, j) => {
       box(p, (j - 1) * PRODUCT.gap, y, PRODUCT.w, productHeight(i, j), PRODUCT.d, PRODUCT.z, color, exProduct, 1.25 + i * 0.14 + j * 0.06);
     });
   });
-  p.push(face("p-base", W + 4, BASE_H, `translate3d(0,${H / 2 - BASE_H / 2}px,${D / 2}px)`, [0, 0, 1], APART.base, [0, 300, 0], 1.0, "<i></i>"));
-  const topperAt = `translate3d(0,${-H / 2 - 40}px,${-D / 2 + 6}px)`;
+  p.push(face("p-base", W, BASE_H, `translate3d(0,${H / 2 - BASE_H / 2}px,${D / 2}px)`, [0, 0, 1], APART.base, [0, 300, 0], 1.0, "<i></i>"));
+  // the topper stands ON the stand (its bottom edge = top of the sides), so it never cuts through them
+  const topperAt = `translate3d(0,${-H / 2 - 48}px,${-D / 2 + 6}px)`;
   p.push(face("p-topper p-front-only", W + 24, 96, topperAt, [0, 0, 1], APART.topper, [0, -420, 0], 2.0, "<i></i><b>POSMTRADE</b><u></u>"));
   p.push(face("p-topper-rear p-front-only", W + 24, 96, `${topperAt} rotateY(180deg)`, [0, 0, 1], APART.topper, [0, -420, 0], 2.0));
   return p;
@@ -165,7 +166,7 @@ export function initStand3d(stage, { reduced }) {
   stage.addEventListener("pointermove", (e) => {
     if (!dragging) return;
     ry += (e.clientX - lastX) * 0.5;
-    rx = Math.max(-40, Math.min(20, rx - (e.clientY - lastY) * 0.3));
+    rx = Math.max(-40, Math.min(-2, rx - (e.clientY - lastY) * 0.3)); // never from below: the stand has no floor
     lastX = e.clientX;
     lastY = e.clientY;
     idle = 0;
@@ -183,6 +184,7 @@ export function initStand3d(stage, { reduced }) {
   }).observe(stage);
 
   let clock = 0;
+  let lastCycle = 0;
   let last = performance.now();
   const tick = (now) => {
     const dt = Math.min(64, now - last);
@@ -190,11 +192,15 @@ export function initStand3d(stage, { reduced }) {
     if (visible && started) {
       clock += dt;
       idle += dt;
-      if (!dragging && idle > 1200) ry += dt * 0.02;
+      const facing = Math.cos(((ry + 25) * Math.PI) / 180); // 1 = front towards the visitor, -1 = back
+      if (!dragging && idle > 1200) ry += dt * 0.016 * (1 + 2.4 * (1 - facing) / 2);
       if (manual !== null) apartTarget = manual ? 1 : 0;
       else if (introDone) {
-        const phase = clock % 11000;
-        apartTarget = phase > 6000 && phase < 9000 ? 1 : 0;
+        // every ~9 s, once the front faces the visitor, the stand comes apart for 2.6 s
+        if (apartTarget === 0 && clock - lastCycle > 9000 && facing > 0.6) {
+          apartTarget = 1;
+          lastCycle = clock;
+        } else if (apartTarget === 1 && clock - lastCycle > 2600) apartTarget = 0;
       }
       apart += (apartTarget - apart) * Math.min(1, dt * 0.004);
       const isApart = apart > 0.5;

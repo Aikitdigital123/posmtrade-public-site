@@ -92,7 +92,19 @@ export function checkScenes() {
         const inSkirt = (a.role === "skirt") !== (b.role === "skirt");
         if (ox > EPS && oy > EPS && oz > EPS && !inSkirt) problems.push(`#${a.order} (${a.role}) intersects #${b.order} (${b.role})`);
       }
-    // 3. visibility: share of each product hidden by non-product parts drawn after it
+    // 3. painter's order: where two parts overlap on screen, the one drawn later must be the nearer one.
+    //    Viewer looks from +x, +y, +z, so a part entirely beyond another along x, y or z is in front of it.
+    for (let i = 0; i < parts.length; i++)
+      for (let j = i + 1; j < parts.length; j++) {
+        const a = parts[i]; // drawn first
+        const b = parts[j]; // drawn later
+        if (a.role === "skirt" || b.role === "skirt") continue;
+        if (area(clipPoly(hull(a), hull(b))) < 0.5) continue;
+        const aBeyond = a.x >= b.x + b.w - EPS || a.y >= b.y + b.h - EPS || a.z >= b.z + b.d - EPS;
+        const bBeyond = b.x >= a.x + a.w - EPS || b.y >= a.y + a.h - EPS || b.z >= a.z + a.d - EPS;
+        if (aBeyond && !bBeyond) problems.push(`draw order: #${a.order} (${a.role}) is in front of #${b.order} (${b.role}) but drawn before it`);
+      }
+    // 4. visibility: share of each product hidden by non-product parts drawn after it
     const hidden = products.map((p) => {
       const hp = hull(p);
       const total = area(hp);

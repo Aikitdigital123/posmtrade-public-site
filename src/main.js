@@ -119,7 +119,12 @@ if (proj) {
       t.tabIndex = j === current ? 0 : -1;
     });
     panels.forEach((p, j) => p.classList.toggle("is-active", j === current));
-    if (focus) tabs[current].focus();
+    const row = tabs[current].parentElement;
+    if (row.scrollWidth > row.clientWidth + 2) {
+      const t = tabs[current];
+      row.scrollTo({ left: t.offsetLeft - (row.clientWidth - t.offsetWidth) / 2, behavior: reduced ? "auto" : "smooth" });
+    }
+    if (focus) tabs[current].focus({ preventScroll: true });
     proj.style.setProperty("--run", "0");
     timer = 0;
   };
@@ -132,11 +137,12 @@ if (proj) {
   );
   proj.querySelector(".proj-tabs").addEventListener("keydown", (e) => {
     const d = { ArrowDown: 1, ArrowRight: 1, ArrowUp: -1, ArrowLeft: -1 }[e.key];
-    if (!d) return;
+    const to = e.key === "Home" ? 0 : e.key === "End" ? tabs.length - 1 : d ? current + d : null;
+    if (to === null) return;
     e.preventDefault();
     auto = false;
     proj.classList.add("is-manual");
-    show(current + d, true);
+    show(to, true);
   });
   proj.addEventListener("pointerenter", () => proj.classList.add("is-paused"));
   proj.addEventListener("pointerleave", () => proj.classList.remove("is-paused"));
@@ -188,7 +194,13 @@ function onScroll() {
   header?.classList.toggle("is-scrolled", y > 12);
   const max = document.documentElement.scrollHeight - window.innerHeight;
   if (progress) progress.style.transform = `scaleX(${max > 0 ? y / max : 0})`;
-  if (!reduced && heroVisual && y < window.innerHeight * 1.2) heroVisual.style.translate = `0 ${y * 0.18}px`;
+  if (!reduced && heroVisual && window.innerWidth > 920 && y < window.innerHeight * 1.2) heroVisual.style.translate = `0 ${y * 0.1}px`;
+  else if (heroVisual) heroVisual.style.translate = "";
+  // at the very top no menu item is "current"
+  if (y < 200) {
+    navLinks.forEach((a) => a.classList.remove("is-current"));
+    if (!nav?.matches(":hover")) restPill();
+  }
   if (steps && stepLine) {
     const r = steps.getBoundingClientRect();
     const p = Math.min(1, Math.max(0, (window.innerHeight * 0.7 - r.top) / (r.height || 1)));
@@ -198,15 +210,17 @@ function onScroll() {
 }
 
 // Marquee runs on its own and speeds up / leans with the scroll speed.
+let marqueeVisible = true;
+if (marquee) new IntersectionObserver(([e]) => (marqueeVisible = e.isIntersecting)).observe(marquee);
 function marqueeLoop() {
   const y = window.scrollY;
   velocity += (y - lastScroll - velocity) * 0.12;
   lastScroll = y;
-  if (marquee) {
+  if (marquee && marqueeVisible) {
     const half = marquee.scrollWidth / 2;
     marqueeX -= 0.6 + Math.min(14, Math.abs(velocity) * 0.35);
     if (marqueeX <= -half) marqueeX += half;
-    marquee.style.transform = `translateX(${marqueeX}px) skewX(${Math.max(-12, Math.min(12, -velocity * 0.4))}deg)`;
+    marquee.style.transform = `translateX(${marqueeX}px) skewX(${Math.max(-4, Math.min(4, -velocity * 0.25))}deg)`;
   }
   requestAnimationFrame(marqueeLoop);
 }

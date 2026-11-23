@@ -19,6 +19,9 @@ když něco selže, web se nenasadí a zpráva testů je v artefaktu `playwright
 | Kontakty | Marina a Gergel: telefon a e-mail jako odkazy, telefon kanceláře, tlačítko Kopírovat |
 | Obsah | agenti jsou kreslené ikony (žádné fotky), obrázky mají `alt`, tlačítka mají název |
 | Bez animací | při „omezit pohyb“ v systému je všechen obsah vidět |
+| Ilustrace (geometrie) | `build/scene-check.mjs`: zboží stojí na podložce, nic se neprolíná, pořadí kreslení odpovídá hloubce, zboží není schované víc, než dovoluje limit scény |
+| Ilustrace v kartách | 3D kresba, celá uvnitř karty; každý typ projektu má vlastní kresbu |
+| Nálezy nezávislé kontroly 2026-11-23 | hlavička zůstává nahoře, otevřené menu zamkne stránku, menu funguje i na právních stránkách, stojan nezajede pod čísla, úvod se vejde na notebook 1280×720, aktivní záložka projektů je vidět, výkres 3D makety sedí v rámečku, jednopísmenná slova nekončí řádek, kontrast WCAG AA, jména agentů latinkou v CZ/EN, vlastní popis právních stránek + hreflang/canonical, ikony kontaktů na řádku s textem |
 
 ## Ruční kontrola před větší změnou
 
@@ -26,3 +29,9 @@ když něco selže, web se nenasadí a zpráva testů je v artefaktu `playwright
 2. Stojan: otočit myší, rozložit, složit; nic se neprolíná, nic neodletí z obrazu.
 3. Projekty: kliknout na několik záložek; kontakty: Zavolat / Napsat / Kopírovat.
 4. Nový prvek s animací = nový test v `tests/site.spec.js`.
+
+## Nezávislá kontrola
+
+U větší změny vzhledu nech projít web dvěma nezávislými kontrolory (agenty s Playwrightem): jeden ilustrace a 3D
+stojan detail po detailu, druhý celý web ve 3 jazycích na počítači, notebooku, tabletu a telefonech. Každý nález,
+který se opraví, dostane test, aby se nevrátil.

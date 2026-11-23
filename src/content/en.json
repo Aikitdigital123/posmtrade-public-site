@@ -62,7 +62,7 @@
       {
         "icon": "topper",
         "title": "Toppers and branding",
-        "text": "Shaped toppers, side panels and bases in full-colour print, visible from across the store."
+        "text": "Shaped toppers, side panels and bases in full-color print, visible from across the store."
       },
       {
         "icon": "shelf",
@@ -72,7 +72,7 @@
       {
         "icon": "label",
         "title": "Labels and marking",
-        "text": "Stickers, marking and labels for batches and promotions — exactly to artwork and quantity."
+        "text": "Stickers, labels and product marking for batches and promotions — printed exactly to your artwork and quantities."
       },
       {
         "icon": "box",
@@ -84,7 +84,7 @@
   "projects": {
     "eyebrow": "Our projects",
     "title": "Over 1,700 projects since 2021",
-    "intro": "Every project is its own design for a specific product and store. Pick a type to see what we make most.",
+    "intro": "Every project is its own design for a specific product and store. Pick a type to see what we make most often.",
     "unit": "projects",
     "yearsTitle": "Projects per year",
     "yearsNote": "2026 — as of November",
@@ -105,7 +105,7 @@
         "key": "figure",
         "label": "Standees",
         "count": "160+",
-        "text": "Flat and 3D standees, checkout figures — brand characters at full size."
+        "text": "Flat and 3D standees: life-size brand characters and checkout figures."
       },
       {
         "key": "box",
@@ -137,7 +137,8 @@
         "count": "60+",
         "text": "Cubes, islands and stands for the middle of the store."
       }
-    ]
+    ],
+    "partial": "Jan–Nov"
   },
   "process": {
     "eyebrow": "How we work",
@@ -156,8 +157,8 @@
         "text": "We show how the assembled piece will look before anything is printed."
       },
       {
-        "title": "Print and die-cut",
-        "text": "Full-colour print, lamination and die-cutting to the approved artwork."
+        "title": "Print and die‑cut",
+        "text": "Full-color print, lamination and die‑cutting to the approved artwork."
       },
       {
         "title": "Assembly and packing",
@@ -165,7 +166,7 @@
       },
       {
         "title": "Delivery",
-        "text": "We ship the batch and the paperwork — no extra e-mails or manual routine."
+        "text": "We ship the batch and the paperwork — without back-and-forth emails or manual paperwork."
       }
     ]
   },
@@ -181,7 +182,7 @@
   },
   "materials": [
     "Corrugated board",
-    "Full-colour print",
+    "Full-color print",
     "Lamination",
     "Die-cutting",
     "Hand assembly",
@@ -192,65 +193,65 @@
   "agents": {
     "eyebrow": "Our agents",
     "title": "Digital assistants working alongside the team",
-    "intro": "POSMTRADE helps authorized organizations automate the processing of corporate e-mail and documents. Digital assistants sort messages and prepare reports, labels and calculations — only within the access the company has approved.",
+    "intro": "POSMTRADE helps authorized organizations automate the processing of corporate email and documents. Digital assistants sort messages and prepare reports, labels and calculations — only within the access the company has approved.",
     "items": [
       {
         "avatar": "galochka",
-        "name": "Пані Галочка",
+        "name": "Pani Halochka",
         "role": "logistics",
-        "text": "Checks logistics e-mails and asks for whatever is missing."
+        "text": "Checks logistics emails and asks for whatever is missing."
       },
       {
         "avatar": "zvitnyk",
-        "name": "Звітник",
+        "name": "Zvitnyk",
         "role": "reports",
         "text": "Builds reports and delivery notes and sends a reminder when something is missing."
       },
       {
         "avatar": "nalipka",
-        "name": "Наліпка",
+        "name": "Nalipka",
         "role": "labels",
         "text": "Prepares labels and marking from an Excel sheet."
       },
       {
         "avatar": "formatynka",
-        "name": "Форматинка",
+        "name": "Formatynka",
         "role": "documents",
         "text": "Turns invoices and statements from PDF into clear Excel tables."
       },
       {
         "avatar": "mirka",
-        "name": "Мірка",
+        "name": "Mirka",
         "role": "calculations",
-        "text": "Converts square metres to running metres and back in seconds."
+        "text": "Converts square meters to running meters and back in seconds."
       },
       {
         "avatar": "kramar",
-        "name": "Крамар",
+        "name": "Kramar",
         "role": "purchasing",
         "text": "Turns a supplier document into a material purchase in the warehouse system."
       },
       {
         "avatar": "vizualchik",
-        "name": "Візуальчик",
+        "name": "Vizualchyk",
         "role": "project search",
         "text": "Finds past projects from a photo or a description."
       },
       {
         "avatar": "maketchyk",
-        "name": "Макетчик",
+        "name": "Maketchyk",
         "role": "3D mock-ups",
         "text": "Builds a 3D mock-up of a display from the drawing and artwork."
       },
       {
         "avatar": "dogovir",
-        "name": "Договірник",
+        "name": "Dohovirnyk",
         "role": "contracts",
         "text": "Checks that the customer has a valid contract."
       },
       {
         "avatar": "vchasnyk",
-        "name": "Вчасник",
+        "name": "Vchasnyk",
         "role": "document flow",
         "text": "Keeps track of electronic documents and their signatures."
       }
@@ -276,11 +277,11 @@
   },
   "contact": {
     "eyebrow": "Contact",
-    "title": "Let's talk about your project",
-    "text": "Write or call — we will propose a design, show a 3D mock-up and quote the batch.",
+    "title": "Let’s talk about your project",
+    "text": "Write or call — we will propose a design, show a 3D mock-up and give you a quote.",
     "office": "Office",
     "call": "Call",
-    "write": "Write",
+    "write": "Email",
     "copy": "Copy",
     "copied": "Copied"
   },

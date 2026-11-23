@@ -175,7 +175,7 @@ test.describe("projects", () => {
 
   test("year chart has 2021–2026", async ({ page }) => {
     await page.goto("");
-    await expect(page.locator(".year-label")).toHaveText(["2021", "2022", "2023", "2024", "2025", "2026"]);
+    await expect(page.locator(".year-label")).toHaveText([/^2021/, /^2022/, /^2023/, /^2024/, /^2025/, /^2026/]);
   });
 });
 
