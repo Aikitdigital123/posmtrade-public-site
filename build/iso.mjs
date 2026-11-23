@@ -38,15 +38,24 @@ function frame(b, face) {
 
 const onFace = (f, u, v) => [f.o[0] + f.u[0] * u + f.v[0] * v, f.o[1] + f.u[1] * u + f.v[1] * v, f.o[2] + f.u[2] * u + f.v[2] * v];
 
+// Every box of the scene being drawn is recorded (with its role), so tests can check the geometry:
+// products stand on something, nothing intersects, products are not hidden behind panels.
+// svg() files the recorded boxes under the scene id in `sceneParts` and starts a new list.
+let recorded = [];
+let nextUid = 1;
+export const sceneParts = {};
+
 // Box with optional decals: { face, rect:[u0,v0,u1,v1], color } or { face, path:[[u,v]...], color }
 // or { face, circle:[u,v,r], color }.
 export function box(x, y, z, w, h, d, color, opts = {}) {
   const b = { x, y, z, w, h, d };
+  const uid = nextUid++;
+  recorded.push({ ...b, role: opts.role ?? "part", name: opts.name ?? "", uid });
   const top = opts.top ?? shade(color, 0.28);
   const right = opts.right ?? shade(color, -0.22);
   const front = opts.front ?? color;
   const edge = opts.edge ?? "rgba(11,37,64,.18)";
-  let out = "";
+  let out = `<g data-b="${uid}">`;
   if (!opts.noRight)
     out += `<polygon points="${pts([[x + w, y, z + d], [x + w, y, z], [x + w, y + h, z], [x + w, y + h, z + d]])}" fill="${right}"/>`;
   if (!opts.noFront)
@@ -69,7 +78,7 @@ export function box(x, y, z, w, h, d, color, opts = {}) {
     // a fine edge on the visible silhouette makes the cardboard read crisply at small sizes
     out += `<polyline points="${pts([[x, y + h, z + d], [x + w, y + h, z + d], [x + w, y + h, z], [x + w, y, z], [x + w, y, z + d], [x, y, z + d], [x, y + h, z + d]])}" fill="none" stroke="${edge}" stroke-width=".6" stroke-linejoin="round"/>`;
   }
-  return out;
+  return `${out}</g>`;
 }
 
 // Soft floor shadow under a footprint.
@@ -82,6 +91,14 @@ export function shadow(x, z, w, d, grow = 6, id = "ID") {
 
 // Wrap groups into an <svg> whose viewBox fits every point used.
 export function svg(id, groups, bounds) {
+  // the draw order is the order in which the boxes appear in the final drawing
+  const body = groups.join("\n  ");
+  const drawn = [...body.matchAll(/data-b="(\d+)"/g)].map((m) => Number(m[1]));
+  sceneParts[id] = recorded
+    .map((b) => ({ ...b, order: drawn.indexOf(b.uid) }))
+    .filter((b) => b.order >= 0)
+    .sort((a, b) => a.order - b.order);
+  recorded = [];
   const corners = [];
   for (const [x0, y0, z0, x1, y1, z1] of bounds)
     for (const x of [x0, x1]) for (const y of [y0, y1]) for (const z of [z0, z1]) corners.push(project([x, y, z]));

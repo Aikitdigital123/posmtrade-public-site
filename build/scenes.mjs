@@ -26,6 +26,7 @@ const logo = (face, u, v, r) => [
 // A product box with a printed band.
 function product(x, y, z, w, h, d, color) {
   return box(x, y, z, w, h, d, color, {
+    role: "product",
     decals: [
       { face: "front", rect: [w * 0.18, h * 0.55, w * 0.82, h * 0.72], color: WHITE, opacity: 0.75 },
       { face: "right", rect: [d * 0.2, h * 0.55, d * 0.8, h * 0.72], color: WHITE, opacity: 0.45 },
@@ -62,7 +63,7 @@ const arch = (w, h, r) => {
 // ---------- Floor display: sides, back, 4 shelves with strips and products, base, topper ----------
 export function floorDisplay() {
   const W = 40;
-  const D = 24;
+  const D = 18;
   const H = 92;
   const levels = [12, 31, 50, 69];
   const colors = [
@@ -76,12 +77,13 @@ export function floorDisplay() {
       decals: [0, 1, 2, 3, 4, 5].map((i) => ({ face: "front", rect: [4 + i * 5, H - 10, 6.5 + i * 5, H - 6], color: "#cfeaf6" })),
     }) +
     box(0, 0, 0, 3, H, D, BLUE2, { right: INNER, front: BLUE }) +
-    box(3, 0, D - 6, W - 6, 9, 6, NAVY, { decals: [{ face: "front", rect: [3, 3, 18, 5.4], color: BLUE }] });
+    box(3, 0, D - 6, W - 6, 6, 6, NAVY, { decals: [{ face: "front", rect: [3, 2, 18, 4], color: BLUE }] });
   const lv = levels
     .map((y, i) => {
-      const shelf = box(3, y - 2, 2, W - 6, 2, D - 2, "#f6fcff");
+      const shelf = box(3, y - 2, 2, W - 6, 2, D - 4, "#f6fcff");
+      // products stand on the shelf, away from the near side panel so they are not hidden behind it
       const prods = colors[i]
-        .map((c, j) => product(6 + j * 10.5, y, 8, 8, 10 + ((i + j) % 3) * 2.5, 9, c))
+        .map((c, j) => product(3.5 + j * 8, y, 7, 7, 10 + ((i + j) % 3) * 2, 7, c))
         .join("");
       const strip = box(3, y - 6, D - 2, W - 6, 6, 2, NAVY, {
         decals: [
@@ -122,39 +124,39 @@ export function counterDisplay() {
     ],
   });
   const tray = box(0, 0, 0, W, 3, D, NAVY);
-  const left = box(1, 3, 3.5, 2, 12, D - 4.5, BLUE2, { right: INNER, front: BLUE });
+  const left = box(1, 3, 3.5, 2, 7, D - 4.5, BLUE2, { right: INNER, front: BLUE });
   const rows = [6, 15]
     .map((z, r) =>
       [0, 1, 2, 3]
-        .map((k) => product(5 + k * 8, 3, z, 6, 15 - r * 2 + ((k + r) % 2) * 2, 6.5, [CORAL, AMBER, MINT, VIOLET][(k + r) % 4]))
+        .map((k) => product(4.5 + k * 7.5, 3, z, 6, 15 - r * 2 + ((k + r) % 2) * 2, 6.5, [CORAL, AMBER, MINT, VIOLET][(k + r) % 4]))
         .join(""),
     )
     .join("");
-  const lip = box(3, 3, D - 3.5, W - 6, 9, 2, BLUE, {
+  const lip = box(3, 3, D - 3.5, W - 6, 6, 2, BLUE, {
     decals: [
-      { face: "front", rect: [3, 3, 19, 5.4], color: WHITE },
-      { face: "front", rect: [25, 2.4, 30.5, 6.4], color: AMBER },
+      { face: "front", rect: [3, 2, 19, 4], color: WHITE },
+      { face: "front", rect: [25, 1.4, 30.5, 4.6], color: AMBER },
     ],
   });
-  const right = box(W - 3, 3, 3.5, 2, 12, D - 4.5, BLUE2, { front: BLUE, decals: [{ face: "right", rect: [3, 4, 15, 6.5], color: WHITE, opacity: 0.7 }] });
+  const right = box(W - 3, 3, 3.5, 2, 7, D - 4.5, BLUE2, { front: BLUE, decals: [{ face: "right", rect: [3, 2.5, 15, 4.5], color: WHITE, opacity: 0.7 }] });
   return svg("table", [shadow(0, 0, W, D, 8), g("", tray), g("i-pop", back), g("", left), g("i-rise", rows), g("", lip), g("", right)], [[0, 0, 0, W, 43, D]]);
 }
 
 // ---------- Toppers and branding: short display with a big shaped topper and printed sides ----------
 export function topperBranding() {
   const W = 40;
-  const D = 22;
-  const H = 46;
+  const D = 18;
+  const H = 56;
   const body =
     box(3, 0, 0, W - 6, H - 2, 2, BOARD) +
     box(0, 0, 0, 3, H, D, BLUE2, { right: INNER, front: BLUE }) +
-    box(3, 0, D - 6, W - 6, 8, 6, NAVY, { decals: [{ face: "front", rect: [3, 2.8, 18, 5], color: AMBER }] });
-  const lv = [26, 11]
+    box(3, 0, D - 6, W - 6, 6, 6, NAVY, { decals: [{ face: "front", rect: [3, 2, 18, 4], color: AMBER }] });
+  const lv = [37, 12]
     .map((y, i) =>
       g(
         "i-lvl",
-        box(3, y - 2, 2, W - 6, 2, D - 2, "#f6fcff") +
-          g("i-rise", [0, 1, 2].map((j) => product(6 + j * 10.5, y, 7, 8, 11 + ((i + j) % 2) * 3, 8, [CORAL, MINT, VIOLET, AMBER][(i + j) % 4])).join("")) +
+        box(3, y - 2, 2, W - 6, 2, D - 4, "#f6fcff") +
+          g("i-rise", [0, 1, 2].map((j) => product(3.5 + j * 8, y, 7, 7, 10 + ((i + j) % 2) * 2, 7, [CORAL, MINT, VIOLET, AMBER][(i + j) % 4])).join("")) +
           box(3, y - 6, D - 2, W - 6, 6, 2, NAVY, { decals: [{ face: "front", rect: [3, 2.2, 16, 3.8], color: BLUE }] }),
       ),
     )
@@ -185,14 +187,15 @@ export function topperBranding() {
 export function shelfStrips() {
   const W = 52;
   const D = 18;
-  const back = box(0, 0, 0, W, 40, 2, "#e3ebf1", { decals: [{ face: "front", rect: [0, 38, W, 40], color: "#cbd8e1" }] });
-  const shelves = [21, 4]
+  const back = box(0, 0, 0, W, 58, 2, "#e3ebf1", { decals: [{ face: "front", rect: [0, 56, W, 58], color: "#cbd8e1" }] });
+  const shelves = [40, 9]
     .map((y, i) => {
-      const board = box(0, y - 2, 2, W, 2, D - 2, "#f7f9fb");
-      const prods = [0, 1, 2, 3, 4]
-        .map((k) => product(3 + k * 10, y, 6, 7, 11 + ((k + i) % 3) * 2, 7, [AMBER, CORAL, VIOLET, MINT, CORAL][(k + i) % 5]))
+      const board = box(0, y - 2, 2, W, 2, D - 3.5, "#f7f9fb");
+      // the lower shelf leaves room at the right end for the wobbler
+      const prods = (i === 1 ? [0, 1, 2, 3] : [0, 1, 2, 3, 4])
+        .map((k) => product(3 + k * 10, y, 5, 7, 10 + ((k + i) % 3) * 2, 7, [AMBER, CORAL, VIOLET, MINT, CORAL][(k + i) % 5]))
         .join("");
-      const strip = box(0, y - 7, D - 0.5, W, 7, 1.5, BLUE, {
+      const strip = box(0, y - 7, D - 1.5, W, 7, 1.5, BLUE, {
         decals: [
           { face: "front", rect: [2, 2.4, 18, 4.6], color: WHITE },
           { face: "front", rect: [22, 1.6, 29, 5.4], color: NAVY },
@@ -204,12 +207,14 @@ export function shelfStrips() {
     })
     .reverse();
   // wobbler: round sign on a clear stem, standing out in front of the upper strip
-  const wobbler = slab(36, 22, D + 4, [[0.6, -6], [1.4, -6], [1.4, 0], [0.6, 0]], 0.4, "#bfe6f7") +
-    slab(31, 16, D + 4, Array.from({ length: 24 }, (_, i) => [6 + 6 * Math.cos((i / 24) * 2 * Math.PI), 6 + 6 * Math.sin((i / 24) * 2 * Math.PI)]), 0.8, CORAL, [
-      { rect: [2.5, 5, 9.5, 7.2], color: WHITE },
-      { rect: [3.5, 3, 8.5, 4.2], color: WHITE, opacity: 0.7 },
+  // wobbler: round sign on a clear stem, hanging from the right end of the upper strip
+  const wobbler =
+    slab(50.1, 26, D - 6, [[0, 0], [0.8, 0], [0.8, 8], [0, 8]], 0.4, "#bfe6f7") +
+    slab(45.5, 16, D - 6, Array.from({ length: 24 }, (_, i) => [5 + 5 * Math.cos((i / 24) * 2 * Math.PI), 5 + 5 * Math.sin((i / 24) * 2 * Math.PI)]), 0.8, AMBER, [
+      { rect: [2, 4.2, 8, 6], color: NAVY },
+      { rect: [3, 2.4, 7, 3.4], color: NAVY, opacity: 0.6 },
     ]);
-  return svg("shelf", [shadow(0, 0, W, D, 6), g("", back), ...shelves, g("i-swing", wobbler)], [[0, 0, 0, W, 40, D + 6]]);
+  return svg("shelf", [shadow(0, 0, W, D, 6), g("", back), ...shelves, g("i-swing", wobbler)], [[0, 0, 0, W + 4, 58, D + 2]]);
 }
 
 // ---------- Labels and marking: a parcel with a printed label and a sheet of stickers ----------
@@ -238,38 +243,23 @@ export function labelsMarking() {
   return svg("label", [shadow(-4, 0, 34, 44, 6), g("i-pop", parcel), g("i-rise", sheet), g("i-swing", peel)], [[-4, 0, 0, 30, 24, 44]]);
 }
 
-// ---------- Shipping packaging: a printed box with tape, a second box and flat-packed boards ----------
+// ---------- Shipping packaging: one printed box with tape ----------
 export function shippingBox() {
-  // flat-packed printed display, leaning behind the boxes
-  const flat = box(-2, 0, 0, 2.2, 30, 26, BLUE2, {
-    right: BLUE,
-    front: BLUE2,
+  const main = box(0, 0, 0, 34, 26, 26, BLUE, {
     decals: [
-      { face: "right", path: [[0, 6], [26, 14], [26, 20], [0, 12]], color: VIOLET, opacity: 0.5 },
-      { face: "right", circle: [18, 24, 3.2], color: WHITE, opacity: 0.6 },
-      { face: "right", rect: [4, 24, 12, 25.6], color: WHITE },
+      { face: "top", rect: [15.5, 0, 18.5, 26], color: NAVY },
+      { face: "front", rect: [15.5, 19, 18.5, 26], color: NAVY },
+      { face: "right", rect: [11.5, 19, 14.5, 26], color: NAVY },
+      ...logo("front", 7.5, 14, 4.6),
+      { face: "front", rect: [3, 4, 14, 6.4], color: WHITE },
+      { face: "front", rect: [3, 8, 10, 9.6], color: WHITE, opacity: 0.7 },
+      { face: "front", rect: [21, 4, 31, 12], color: WHITE },
+      ...[0, 1, 2, 3, 4, 5, 6].map((i) => ({ face: "front", rect: [22.2 + i * 1.2, 5.5, 22.8 + i * 1.2 + (i % 3 ? 0 : 0.35), 9.6], color: NAVY })),
+      { face: "right", path: [[5, 8], [7.5, 12.5], [10, 8], [8.6, 8], [8.6, 4.5], [6.4, 4.5], [6.4, 8]], color: WHITE },
+      { face: "right", path: [[16, 8], [18.5, 12.5], [21, 8], [19.6, 8], [19.6, 4.5], [17.4, 4.5], [17.4, 8]], color: WHITE },
     ],
   });
-  const back = box(4, 0, 2, 22, 16, 18, BLUE2, {
-    decals: [
-      { face: "top", rect: [9.5, 0, 12.5, 18], color: NAVY, opacity: 0.85 },
-      { face: "front", rect: [3, 5, 12, 7.5], color: WHITE, opacity: 0.8 },
-    ],
-  });
-  const main = box(10, 0, 18, 28, 22, 20, BLUE, {
-    decals: [
-      { face: "top", rect: [12.5, 0, 15.5, 20], color: NAVY },
-      { face: "front", rect: [11, 15, 17, 22], color: NAVY },
-      ...logo("front", 6.5, 14, 4),
-      { face: "front", rect: [3, 4, 14, 6.2], color: WHITE },
-      { face: "front", rect: [3, 7.8, 10, 9.4], color: WHITE, opacity: 0.7 },
-      // "this side up" arrows
-      { face: "right", path: [[6, 8], [8, 12], [10, 8], [8.8, 8], [8.8, 5], [7.2, 5], [7.2, 8]], color: WHITE },
-      { face: "right", path: [[12, 8], [14, 12], [16, 8], [14.8, 8], [14.8, 5], [13.2, 5], [13.2, 8]], color: WHITE },
-      { face: "right", rect: [5, 15, 17, 17], color: WHITE, opacity: 0.6 },
-    ],
-  });
-  return svg("box", [shadow(-2, 0, 40, 38, 6, "box"), g("", flat), g("i-rise", back), g("i-pop", main)], [[-2, 0, 0, 38, 30, 38]]);
+  return svg("box", [shadow(0, 0, 34, 26, 6, "box"), g("i-pop", main)], [[0, 0, 0, 34, 26, 26]]);
 }
 
 // ---------- Projects ----------
@@ -292,41 +282,48 @@ export function barketa() {
   const W = 40;
   const D = 30;
   const stock = [0, 1, 2]
-    .flatMap((r) => [0, 1, 2].map((c) => product(2 + c * 12.5, 4, 2 + r * 9.5, 11, 24 + ((r + c) % 2) * 3, 8.5, [CORAL, AMBER, MINT, VIOLET][(r + c) % 4])))
+    .flatMap((r) => [0, 1, 2].map((c) => product(2 + c * 12.5, 4, 2 + r * 9.5, 11, 26 + ((r + c) % 2) * 3, 8.5, [CORAL, AMBER, MINT, VIOLET][(r + c) % 4])))
     .join("");
-  const skirt = box(0, 4, 0, W, 16, D, BLUE, {
+  const skirt = box(0, 4, 0, W, 13, D, BLUE, {
     noTop: true,
+    role: "skirt",
     decals: [
-      { face: "front", path: [[0, 2], [W, 8], [W, 13], [0, 7]], color: VIOLET, opacity: 0.55 },
-      ...logo("front", 7, 9, 5),
-      { face: "front", rect: [16, 9, 34, 11.5], color: WHITE },
-      { face: "front", rect: [16, 5.5, 27, 7.2], color: WHITE, opacity: 0.7 },
-      { face: "right", rect: [4, 6, 26, 9], color: AMBER },
-      { face: "right", circle: [22, 13, 2.2], color: WHITE, opacity: 0.6 },
+      { face: "front", path: [[0, 1.5], [W, 6.5], [W, 10.5], [0, 5.5]], color: VIOLET, opacity: 0.55 },
+      ...logo("front", 6.5, 7, 4.2),
+      { face: "front", rect: [15, 7.5, 34, 9.8], color: WHITE },
+      { face: "front", rect: [15, 4.2, 27, 5.8], color: WHITE, opacity: 0.7 },
+      { face: "right", rect: [4, 4.5, 26, 7.5], color: AMBER },
+      { face: "right", circle: [22, 10.2, 1.8], color: WHITE, opacity: 0.6 },
     ],
   });
   return svg("barketa", [shadow(0, 0, W, D, 8, "barketa"), g("", pallet(0, 0, W, D)), g("i-rise", stock), g("i-pop", skirt)], [[0, 0, 0, W, 34, D]]);
 }
 
-// Standee: a character cut from board, with a back support and a base.
+// Standee: a life-size figure cut from board, holding a product; back support and base.
 export function figure() {
-  const body = [[4, 0], [24, 0], [23, 30], [28, 44], [25, 46], [20, 36], [20, 48], [8, 48], [8, 36], [3, 46], [0, 44], [5, 30]];
-  const head = Array.from({ length: 28 }, (_, i) => [14 + 9 * Math.cos((i / 28) * 2 * Math.PI), 57 + 9 * Math.sin((i / 28) * 2 * Math.PI)]);
-  const support = box(10, 0, 0, 8, 30, 1.2, "#d6e4ec");
-  const base = box(-2, 0, 0, 32, 3, 10, NAVY);
+  const SKIN = "#ffd1a8";
+  const legs = [[7, 0], [13, 0], [13, 15], [15, 15], [15, 0], [21, 0], [21.5, 16], [6.5, 16]];
+  const torso = [[5.5, 15], [22.5, 15], [23.5, 38], [22, 42], [18, 44], [10, 44], [6, 42], [4.5, 38]];
+  const head = Array.from({ length: 28 }, (_, i) => [14 + 7 * Math.cos((i / 28) * 2 * Math.PI), 51 + 7.5 * Math.sin((i / 28) * 2 * Math.PI)]);
+  const hair = [[7, 52], [8, 57], [11, 59.5], [17, 59.5], [20, 57], [21, 52], [19, 55], [9, 55]];
+  const support = box(10, 3, 0, 8, 30, 1.2, "#d6e4ec");
+  const base = box(-1, 0, 0, 30, 3, 10, NAVY, { decals: [{ face: "front", rect: [3, 1, 14, 2], color: BLUE }] });
+  const z = 6;
   const fig =
-    slab(0, 3, 6, body, 1.6, BLUE, [
-      { rect: [8, 14, 20, 30], color: WHITE },
-      ...logo("front", 14, 24, 4.5).map((d) => ({ ...d, face: undefined })),
-      { rect: [9.5, 16, 18.5, 18], color: BLUE2 },
+    slab(0, 3, z, legs, 1.6, NAVY) +
+    slab(0, 3, z, torso, 1.6, BLUE, [
+      { path: [[5.5, 15], [22.5, 15], [22.8, 20], [5.2, 20]], color: BLUE2 },
+      ...logo("front", 14, 35, 3.4).map((d) => ({ ...d, face: undefined })),
     ]) +
-    slab(0, 3, 6, head, 1.6, AMBER, [
-      { circle: [10.5, 59, 1.4], color: NAVY },
-      { circle: [17.5, 59, 1.4], color: NAVY },
-      { path: [[10, 53.5], [18, 53.5], [16.5, 51.5], [11.5, 51.5]], color: CORAL },
+    slab(0, 3, z, head, 1.6, SKIN, [{ path: hair, color: "#3b2a20" }]) +
+    // the product in the figure's hands
+    slab(8, 3, z + 1.7, [[0, 18], [12, 18], [12, 30], [0, 30]], 1.4, AMBER, [
+      { rect: [2, 25, 10, 27], color: WHITE },
+      { rect: [3, 21, 9, 22.4], color: CORAL },
     ]) +
-    slab(22, 50, 6, Array.from({ length: 20 }, (_, i) => [5 + 5 * Math.cos((i / 20) * 2 * Math.PI), 5 + 5 * Math.sin((i / 20) * 2 * Math.PI)]), 1.2, CORAL, [{ rect: [2, 4, 8, 6], color: WHITE }]);
-  return svg("figure", [shadow(-2, 0, 32, 12, 8, "figure"), g("", base), g("", support), g("i-pop", fig)], [[-2, 0, 0, 32, 66, 12]]);
+    slab(0, 3, z + 1.7, [[4.5, 30], [8.5, 30], [8.5, 25], [4.5, 25]], 0.6, SKIN) +
+    slab(0, 3, z + 1.7, [[19.5, 30], [23.5, 30], [23.5, 25], [19.5, 25]], 0.6, SKIN);
+  return svg("figure", [shadow(-1, 0, 30, 12, 8, "figure"), g("", base), g("", support), g("i-pop", fig)], [[-1, 0, 0, 29, 64, 12]]);
 }
 
 // Decoration: a store zone on a podium – garland between two posts, a star standee and gift boxes.
@@ -351,7 +348,9 @@ export function decoration() {
     const a = -Math.PI / 2 + (i / 10) * Math.PI * 2;
     return [12 + r * Math.cos(a), 13 - r * Math.sin(a)];
   });
-  const starStand = box(8, 3, 9, 8, 2, 5, BLUE2) + slab(0, 5, 11, star, 1.6, AMBER, [{ circle: [12, 13, 3.2], color: WHITE, opacity: 0.6 }]);
+  // the two lower points of the star stand on the base
+  const legsV = 13 - 12 * Math.cos(Math.PI / 5);
+  const starStand = box(3, 3, 9, 18, 2, 5, BLUE2) + slab(0, 5 - legsV, 11, star, 1.6, AMBER, [{ circle: [12, 13, 3.2], color: WHITE, opacity: 0.6 }]);
   const gifts =
     box(28, 3, 10, 12, 10, 10, CORAL, {
       decals: [
@@ -376,8 +375,8 @@ export function palletFrame() {
   const stock = [0, 1, 2]
     .flatMap((r) => [0, 1, 2].map((c) => product(3 + c * 12, 4, 3 + r * 9, 10, 18 + ((r + c) % 2) * 4, 8, [MINT, CORAL, AMBER, VIOLET][(r + c) % 4])))
     .join("");
-  const postL = box(-1, 4, D - 4, 3, 40, 3, BLUE2, { front: BLUE });
-  const postR = box(W - 2, 4, D - 4, 3, 40, 3, BLUE2, { front: BLUE, decals: [{ face: "right", rect: [0.5, 6, 2.5, 30], color: WHITE, opacity: 0.5 }] });
+  const postL = box(-1, 4, D - 4, 3, 36, 3, BLUE2, { front: BLUE });
+  const postR = box(W - 2, 4, D - 4, 3, 36, 3, BLUE2, { front: BLUE, decals: [{ face: "right", rect: [0.5, 6, 2.5, 30], color: WHITE, opacity: 0.5 }] });
   const header = box(-1, 40, D - 4, W + 2, 12, 3, BLUE, {
     decals: [
       ...logo("front", 7, 6, 4.5),
@@ -385,7 +384,7 @@ export function palletFrame() {
       { face: "front", rect: [15, 3, 28, 4.8], color: WHITE, opacity: 0.7 },
     ],
   });
-  const lip = box(0, 4, D - 1, W, 6, 1, NAVY, { decals: [{ face: "front", rect: [3, 2, 20, 4], color: BLUE }] });
+  const lip = box(2, 4, D - 1, W - 4, 4, 1, NAVY, { decals: [{ face: "front", rect: [3, 1.2, 20, 2.8], color: BLUE }] });
   return svg("pallet", [shadow(-1, 0, W + 2, D, 8, "pallet"), g("", pallet(0, 0, W, D)), g("i-rise", stock), g("", postL + lip), g("", postR), g("i-pop", header)], [[-1, 0, 0, W + 1, 52, D]]);
 }
 
@@ -399,12 +398,12 @@ export function tray() {
   const rows = [4, 12]
     .map((z, r) => [0, 1, 2, 3].map((k) => product(4 + k * 8.5, 2, z, 7, 15 + ((k + r) % 2) * 3, 6, [AMBER, CORAL, MINT, VIOLET][(k + r) % 4])).join(""))
     .join("");
-  const front = box(2, 2, D - 2, W - 4, 10, 2, BLUE, {
+  const front = box(2, 2, D - 2, W - 4, 7, 2, BLUE, {
     decals: [
-      { face: "front", path: [[0, 0], [W - 4, 0], [W - 4, 4], [0, 7]], color: NAVY, opacity: 0.85 },
-      ...logo("front", 6, 6.5, 2.6),
-      { face: "front", rect: [11, 7, 26, 8.6], color: WHITE },
-      { face: "front", rect: [28, 1.2, 33, 3.2], color: AMBER },
+      { face: "front", path: [[0, 0], [W - 4, 0], [W - 4, 2.5], [0, 4.5]], color: NAVY, opacity: 0.85 },
+      ...logo("front", 5, 4.4, 2.2),
+      { face: "front", rect: [10, 4.2, 25, 5.6], color: WHITE },
+      { face: "front", rect: [28, 1.0, 33, 2.8], color: AMBER },
     ],
   });
   const right = box(W - 2, 2, 2, 2, 8, D - 2, BLUE2, { front: BLUE });
