@@ -20,7 +20,7 @@ Sajtik (Сайтік) is the agent that makes the changes Marina or the owner as
 | Projects section: types and counts | `projects.types` in the three JSON files; per-year numbers in `site.json` → `projectsByYear` (from `~/Data/Posmtrade/Znalosti/projekty.db`, rows `druh='projekt'`) |
 | Privacy policy / terms text | `src/content/legal/<lang>-privacy.html`, `<lang>-terms.html` |
 | Colours, fonts, spacing, animations | `src/styles/main.css` (colours are tokens on `:root`) |
-| Product illustrations (services cards) | `build/icons.mjs` (key = `icon` in the JSON) |
+| Product illustrations (services cards, projects) | isometric 3D scenes in `build/scenes.mjs` (renderer `build/iso.mjs`), mapped to keys in `build/icons.mjs` (key = `icon` in the JSON). Owner wants them detailed like the 3D stand, never flat schematic icons |
 | Agents menu (cards: name, role, text) | `agents.items` in the three JSON files; avatar = `public/agents/<avatar>.webp` (no file → drawn badge) |
 | Page layout, sections, die-line drawing | `build/render.mjs` |
 | Rotating 3D stand in the hero (owner likes it – keep) | `src/stand3d.js` |

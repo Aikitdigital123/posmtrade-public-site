@@ -204,6 +204,31 @@ test.describe("contacts", () => {
   });
 });
 
+test.describe("illustrations", () => {
+  test("services: six detailed 3D drawings, each fully inside its card", async ({ page }) => {
+    await page.goto("");
+    await page.locator("#services").scrollIntoViewIfNeeded();
+    await page.waitForTimeout(1500);
+    const cards = page.locator(".service-card");
+    await expect(cards).toHaveCount(6);
+    for (const card of await cards.all()) {
+      const stage = await card.locator(".service-icon").boundingBox();
+      const art = await card.locator(".service-icon svg").boundingBox();
+      expect(await card.locator(".service-icon svg").getAttribute("data-iso")).toBeTruthy();
+      expect(art.y).toBeGreaterThanOrEqual(stage.y - 1);
+      expect(art.y + art.height).toBeLessThanOrEqual(stage.y + stage.height + 1);
+      expect(art.x).toBeGreaterThanOrEqual(stage.x - 1);
+      expect(art.x + art.width).toBeLessThanOrEqual(stage.x + stage.width + 1);
+    }
+  });
+
+  test("projects: every type has its own 3D drawing", async ({ page }) => {
+    await page.goto("");
+    const ids = await page.locator(".proj-panel svg").evaluateAll((s) => s.map((e) => e.getAttribute("data-iso")));
+    expect(ids).toEqual(["floor", "barketa", "figure", "box", "decoration", "pallet", "tray", "cube"]);
+  });
+});
+
 test.describe("content rules", () => {
   test("agents are drawn icons, never photos", async ({ page }) => {
     await page.goto("");
