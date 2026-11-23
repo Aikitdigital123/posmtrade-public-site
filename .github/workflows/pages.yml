@@ -15,7 +15,8 @@ concurrency:
 jobs:
   prepare:
     name: Build site (Vite)
-    runs-on: ubuntu-latest
+    # Playwright 1.57 supports Ubuntu up to 24.04 (ubuntu-latest is 26.04)
+    runs-on: ubuntu-24.04
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
