@@ -1,34 +1,32 @@
 # POSMTRADE – veřejný web
 
-Tento repozitář obsahuje veřejnou informační prezentaci služby POSMTRADE. Web srozumitelně vysvětluje, jak služba pomáhá oprávněným organizacím automatizovat zpracování e-mailů a dokumentů, a poskytuje veřejné stránky potřebné pro Google OAuth. Výchozí jazyk webu je ukrajinština; česká a anglická verze jsou dostupné jako samostatné statické stránky.
+Veřejná prezentace POSMTRADE: co vyrábíme (kartonové displeje, stojany, POS materiály, etikety, obaly,
+3D makety) a jak funguje naše automatizace. Zároveň veřejná domovská stránka, zásady ochrany soukromí
+a podmínky pro Google OAuth. Výchozí jazyk ukrajinština, dále čeština a angličtina.
 
-## Rozsah projektu
+Web: <https://aikitdigital123.github.io/posmtrade-public-site/>
+Správce: agent **Sajtik (Сайтік)** – viz `AGENTS.md` a `.claude/agents/sajtik.md`.
 
-- pouze statické HTML a CSS v adresáři `site/`;
-- žádný backend, databáze, formuláře, cookies, analytika ani externí trackery;
-- žádná klientská data, přihlašovací údaje nebo neveřejné provozní informace;
-- publikování pouze prostřednictvím GitHub Pages.
+## Technika
 
-Soukromý klientský dashboard je jiný projekt. Běží lokálně, nepatří do tohoto repozitáře a nebude publikován přes GitHub Pages. Jeho případné budoucí zpřístupnění bude řešeno odděleně přes Cloudflare Tunnel.
+- **Vite + čistý JavaScript**, žádný framework; písma Manrope a Unbounded přibalená přes `@fontsource`.
+- Texty v `src/content/<jazyk>.json`, právní stránky v `src/content/legal/`; `build/render.mjs` z nich
+  vygeneruje stránky do `pages/`, Vite je sestaví do `dist/`.
+- Animace: skládající se stojan v úvodu, otáčivý 3D stojan (CSS 3D, dá se táhnout), odhalování při
+  posunu, počítadla, běžící pás, linka procesu. Respektuje `prefers-reduced-motion`.
 
-## Struktura webu
+## Příkazy
 
-- `site/index.html` – ukrajinská domovská stránka;
-- `site/privacy.html` – ukrajinská ochrana soukromí;
-- `site/terms.html` – ukrajinské podmínky používání;
-- `site/cs/` – česká jazyková verze;
-- `site/en/` – anglická jazyková verze;
-- `site/uk/` – kompatibilní kopie ukrajinské verze pro dřívější odkazy;
-- `site/styles.css` – společný responzivní vzhled.
+```bash
+npm install        # jednou
+npm run dev        # náhled s živými změnami
+npm run check      # build + kontrola stránek, odkazů a citlivých údajů (musí projít před pushem)
+npm run preview    # náhled sestaveného webu
+```
 
-## Lokální náhled
+## Publikování
 
-Otevřete `site/index.html` v prohlížeči nebo spusťte libovolný lokální server pro statické soubory s kořenem v adresáři `site/`.
+Push do `main` → GitHub Actions (`.github/workflows/pages.yml`) spustí `npm ci` a `npm run check`
+a nasadí `dist/` na GitHub Pages.
 
-## GitHub Pages
-
-Workflow `.github/workflows/pages.yml` publikuje přesně obsah adresáře `site/` po změně větve `main`. V repozitáři je nutné jednorázově nastavit **Settings → Pages → Build and deployment → Source: GitHub Actions**.
-
-Očekávaná adresa je `https://aikitdigital123.github.io/posmtrade-public-site/`.
-
-Před každým commitem postupujte podle `SECURITY.md`. Další kroky pro Google OAuth jsou v `GOOGLE_OAUTH_NEXT_STEPS.md`.
+Před commitem `SECURITY.md`; kroky pro Google OAuth v `GOOGLE_OAUTH_NEXT_STEPS.md`; logo v `docs/LOGO.md`.

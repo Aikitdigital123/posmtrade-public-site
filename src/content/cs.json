@@ -1,0 +1,227 @@
+{
+  "lang": "cs",
+  "label": "CZ",
+  "meta": {
+    "title": "POSMTRADE — POS materiály a kartonové displeje",
+    "description": "POSMTRADE navrhuje a vyrábí kartonové displeje, stojany a POS materiály pro maloobchod: od konstrukce a 3D maketu po tisk, kompletaci a doručení."
+  },
+  "nav": {
+    "skip": "Přejít na obsah",
+    "menu": "Menu",
+    "services": "Co děláme",
+    "process": "Jak pracujeme",
+    "mockup": "3D maketa",
+    "contact": "Kontakt",
+    "home": "Úvod",
+    "privacy": "Ochrana soukromí",
+    "terms": "Podmínky",
+    "agents": "Agenti"
+  },
+  "hero": {
+    "eyebrow": "POS materiály · kartonové displeje · tisk",
+    "title": "Váš produkt <em>vidět</em> v regálu",
+    "lead": "Navrhujeme a vyrábíme kartonové displeje, stojany a POS materiály pro maloobchod — od prvního nápadu a 3D makety po tisk, kompletaci a doručení do prodejny.",
+    "ctaPrimary": "Co děláme",
+    "ctaSecondary": "Jak pracujeme"
+  },
+  "stats": [
+    {
+      "value": 1700,
+      "suffix": "+",
+      "label": "realizovaných projektů"
+    },
+    {
+      "value": 2021,
+      "suffix": "",
+      "label": "rok, od kterého vedeme projekty v naší databázi",
+      "plain": true
+    },
+    {
+      "value": 24,
+      "suffix": "/7",
+      "label": "digitální pomocníci zpracovávají poštu a dokumenty"
+    }
+  ],
+  "services": {
+    "eyebrow": "Co děláme",
+    "title": "Vše, co pomáhá prodávat v místě prodeje",
+    "intro": "Každý výrobek konstruujeme pro konkrétní zboží, regál a prodejnu — pevný, snadno složitelný a dobře vypadající.",
+    "items": [
+      {
+        "icon": "floor",
+        "title": "Podlahové displeje",
+        "text": "Stojany s policemi, boky a topperem: unesou zboží a složí se bez nářadí."
+      },
+      {
+        "icon": "table",
+        "title": "Pultové displeje",
+        "text": "Kompaktní displeje k pokladně a na pult — zboží po ruce ve chvíli rozhodnutí."
+      },
+      {
+        "icon": "topper",
+        "title": "Toppery a branding",
+        "text": "Tvarované toppery, boční panely a sokly s plnobarevným tiskem, vidět zdaleka."
+      },
+      {
+        "icon": "shelf",
+        "title": "Police a shelfstripy",
+        "text": "Cenovkové lišty, polepy polic a akční prvky, které značku odliší v řadě."
+      },
+      {
+        "icon": "label",
+        "title": "Etikety a značení",
+        "text": "Samolepky, značení a etikety pro šarže i promo — přesně podle podkladu a počtu."
+      },
+      {
+        "icon": "box",
+        "title": "Přepravní obaly",
+        "text": "Krabice, ve kterých displej bezpečně dojede do prodejny a rychle se na místě složí."
+      }
+    ]
+  },
+  "process": {
+    "eyebrow": "Jak pracujeme",
+    "title": "Od briefu po prodejnu — jeden partner",
+    "steps": [
+      {
+        "title": "Brief",
+        "text": "Zboží, rozměry, počet kusů, prodejna a termín — upřesníme vše, co ovlivní konstrukci."
+      },
+      {
+        "title": "Konstrukce",
+        "text": "Konstruktér navrhne rozvin: díly, police, zámky a nosnost."
+      },
+      {
+        "title": "3D maketa",
+        "text": "Ukážeme, jak bude výrobek vypadat složený, ještě před tiskem."
+      },
+      {
+        "title": "Tisk a výsek",
+        "text": "Plnobarevný tisk, laminace a výsek podle schválené makety."
+      },
+      {
+        "title": "Kompletace a balení",
+        "text": "Zkontrolujeme vzorek a zabalíme do přepravního obalu s návodem."
+      },
+      {
+        "title": "Doručení",
+        "text": "Odešleme zakázku i doklady — bez zbytečných e-mailů a ruční rutiny."
+      }
+    ]
+  },
+  "mockup": {
+    "eyebrow": "3D maketa",
+    "title": "Displej uvidíte dřív, než se vytiskne",
+    "text": "Z výkresu a grafiky složíme 3D model displeje: boky, police, topper i potisk na svých místech. Schvalování je rychlejší a chyby jsou vidět ještě před výrobou.",
+    "points": [
+      "Grafika na každém viditelném dílu",
+      "Správná orientace nápisů a polic",
+      "Rozměry polic užitečné pro plánování zboží"
+    ]
+  },
+  "materials": [
+    "Vlnitá lepenka",
+    "Plnobarevný tisk",
+    "Laminace",
+    "Výsek",
+    "Ruční kompletace",
+    "Kontrola vzorku",
+    "Přepravní obal",
+    "3D maketa"
+  ],
+  "agents": {
+    "eyebrow": "Naši agenti",
+    "title": "Digitální pomocníci, kteří pracují s týmem",
+    "intro": "POSMTRADE pomáhá oprávněným organizacím automatizovat zpracování firemní e-mailové komunikace a dokumentů. Digitální pomocníci třídí e-maily, připravují výkazy, etikety a výpočty — pouze v rozsahu schváleného přístupu společnosti.",
+    "items": [
+      {
+        "avatar": "galochka",
+        "name": "Пані Галочка",
+        "role": "logistika",
+        "text": "Kontroluje logistické e-maily a vyžádá si, co chybí."
+      },
+      {
+        "avatar": "zvitnyk",
+        "name": "Звітник",
+        "role": "výkazy",
+        "text": "Sestavuje výkazy a výdejky a připomene, když něco chybí."
+      },
+      {
+        "avatar": "nalipka",
+        "name": "Наліпка",
+        "role": "etikety",
+        "text": "Připraví etikety a značení z tabulky Excel."
+      },
+      {
+        "avatar": "formatynka",
+        "name": "Форматинка",
+        "role": "doklady",
+        "text": "Převádí faktury a výpisy z PDF do přehledných tabulek Excel."
+      },
+      {
+        "avatar": "mirka",
+        "name": "Мірка",
+        "role": "výpočty",
+        "text": "Rychle přepočítá m² na běžné metry a zpět."
+      },
+      {
+        "avatar": "kramar",
+        "name": "Крамар",
+        "role": "nákup",
+        "text": "Z dokladu dodavatele připraví nákup materiálu do skladu."
+      },
+      {
+        "avatar": "vizualchik",
+        "name": "Візуальчик",
+        "role": "hledání projektů",
+        "text": "Najde minulé projekty podle fotky nebo popisu."
+      },
+      {
+        "avatar": "maketchyk",
+        "name": "Макетчик",
+        "role": "3D makety",
+        "text": "Z výkresu a grafiky složí 3D maketu displeje."
+      },
+      {
+        "avatar": "dogovir",
+        "name": "Договірник",
+        "role": "smlouvy",
+        "text": "Ověří, že zákazník má platnou smlouvu."
+      },
+      {
+        "avatar": "vchasnyk",
+        "name": "Вчасник",
+        "role": "oběh dokladů",
+        "text": "Hlídá elektronické doklady a jejich podpisy."
+      }
+    ],
+    "principlesTitle": "Méně rutiny. Více času na rozhodnutí.",
+    "points": [
+      {
+        "title": "Bezpečný provoz",
+        "text": "Informace se používají jen k poskytování služby a jen ve schváleném rozsahu."
+      },
+      {
+        "title": "Omezený přístup",
+        "text": "Služba pracuje pouze s oprávněným firemním přístupem."
+      },
+      {
+        "title": "Lidská kontrola",
+        "text": "Nejasné případy předáváme člověku. Konečné rozhodnutí má oprávněný pracovník."
+      }
+    ],
+    "dataNote": "Data se nepoužívají k reklamě a neprodávají se.",
+    "privacyLink": "Jak chráníme data",
+    "termsLink": "Podmínky používání"
+  },
+  "contact": {
+    "eyebrow": "Kontakt",
+    "title": "Máte zboží, které potřebuje pódium?",
+    "text": "Napište nám o zboží a prodejně — navrhneme konstrukci, ukážeme 3D maketu a spočítáme zakázku.",
+    "cta": "Napsat nám"
+  },
+  "footer": {
+    "rights": "© 2026 POSMTRADE",
+    "tagline": "POS materiály, displeje a automatizace pro maloobchod."
+  }
+}

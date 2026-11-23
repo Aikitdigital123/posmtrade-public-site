@@ -17,3 +17,8 @@ Thumbs.db
 *.log
 *.tmp
 *.bak
+
+# Vite
+node_modules/
+dist/
+pages/
