@@ -141,7 +141,7 @@
     "partial": "led–lis",
     "showcase": {
       "title": "Nedávno realizované",
-      "hint": "Najeďte nebo klepněte — jiný pohled",
+      "hint": "Listujte pohledy: zepředu, z boku, zezadu",
       "items": [
         {
           "key": "bobsnail",
@@ -158,13 +158,28 @@
           "size": "620 × 253 × 1648 mm",
           "shelves": "4 police",
           "date": "duben 2025"
+        },
+        {
+          "key": "alpro",
+          "name": "Alpro",
+          "type": "Podlahový stojan s topperem",
+          "size": "429 × 265 × 1772 mm",
+          "shelves": "4 police",
+          "date": "duben 2025"
         }
       ],
       "labels": {
         "size": "Rozměry",
         "shelves": "Police",
         "date": "Rok"
-      }
+      },
+      "views": [
+        "Z boku",
+        "Zepředu",
+        "Zezadu"
+      ],
+      "prev": "Předchozí pohled",
+      "next": "Další pohled"
     }
   },
   "process": {

@@ -243,10 +243,10 @@ test.describe("content rules", () => {
     }
   });
 
-  test("recently delivered: two stands with real renders and their facts; tap shows the other view", async ({ page }) => {
+  test("recently delivered: three stands, a carousel of real 3D views with their facts", async ({ page }) => {
     await page.goto("");
     const cases = page.locator(".case");
-    await expect(cases).toHaveCount(2);
+    await expect(cases).toHaveCount(3);
     await cases.first().scrollIntoViewIfNeeded();
     for (const img of await page.locator(".case-img").all()) {
       await img.scrollIntoViewIfNeeded();
@@ -254,8 +254,14 @@ test.describe("content rules", () => {
     }
     await expect(cases.first()).toContainText("477 × 306 × 1575");
     await expect(cases.nth(1)).toContainText("620 × 253 × 1648");
-    await cases.first().click();
-    await expect(cases.first()).toHaveClass(/is-flipped/);
+    await expect(cases.nth(2)).toContainText("429 × 265 × 1772");
+    const first = cases.first();
+    await expect(first.locator(".case-img.is-active")).toHaveCount(1);
+    const before = await first.locator(".case-img.is-active").getAttribute("src");
+    await first.locator(".case-next").click();
+    await expect.poll(() => first.locator(".case-img.is-active").getAttribute("src")).not.toBe(before);
+    await first.locator(".case-dot").nth(2).click();
+    await expect(first.locator(".case-img.is-active")).toHaveAttribute("src", /-back\.webp$/);
   });
 
   test("legal pages name the operator (POSMTRADE) with a contact and a date", async ({ page }) => {

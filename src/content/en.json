@@ -141,7 +141,7 @@
     "partial": "Jan–Nov",
     "showcase": {
       "title": "Recently delivered",
-      "hint": "Hover or tap — another view",
+      "hint": "Browse the views: front, side, back",
       "items": [
         {
           "key": "bobsnail",
@@ -158,13 +158,28 @@
           "size": "620 × 253 × 1648 mm",
           "shelves": "4 shelves",
           "date": "April 2025"
+        },
+        {
+          "key": "alpro",
+          "name": "Alpro",
+          "type": "Floor display with topper",
+          "size": "429 × 265 × 1772 mm",
+          "shelves": "4 shelves",
+          "date": "April 2025"
         }
       ],
       "labels": {
         "size": "Size",
         "shelves": "Shelves",
         "date": "Year"
-      }
+      },
+      "views": [
+        "Side",
+        "Front",
+        "Back"
+      ],
+      "prev": "Previous view",
+      "next": "Next view"
     }
   },
   "process": {

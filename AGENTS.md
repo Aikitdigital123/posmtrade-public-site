@@ -27,7 +27,7 @@ and to anyone working here by hand.
 | Colours, fonts, spacing, animations | `src/styles/main.css` (colours are tokens on `:root`) |
 | Product illustrations (services cards, projects) | isometric 3D scenes in `build/scenes.mjs` (renderer `build/iso.mjs`), mapped to keys in `build/icons.mjs` (key = `icon` in the JSON). Owner wants them detailed like the 3D stand, never flat schematic icons |
 | Automation section (task cards, call to action) | `agents` in the three JSON files; icons in `build/agent-icons.mjs` (key = `icon`) |
-| Recently delivered stands | `projects.showcase` in the JSON files; images `public/projects/<key>-hero.webp` and `-front.webp` (renders from `~/Data/Posmtrade/Znalosti/zlata-sada/<project>/render_*.png`, cropped, 640×800 WebP) |
+| Recently delivered stands (carousel) | `projects.showcase` in the JSON files (`views`, `prev`, `next` = carousel labels); images `public/projects/<key>-right.webp`, `-front.webp`, `-back.webp` (the three views of Макетчик's client sheet 2, cropped, transparent, 640×800 WebP) |
 | Operator block of the legal pages | end of `src/content/legal/<lang>-<page>.html` (`legal-operator`) |
 | Page layout, sections, die-line drawing | `build/render.mjs` |
 | Rotating 3D stand in the hero (owner likes it – keep) | `src/stand3d.js` |

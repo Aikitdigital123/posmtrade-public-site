@@ -191,14 +191,24 @@ function home(c, lang) {
     )
     .join("");
 
-  // Recently delivered stands: two renders each (3/4 view and front), the second shows on hover/tap.
+  // Recently delivered stands: a carousel of the current 3D views (side 3/4, front, back) with arrows, dots and swipe.
   const sc = c.projects.showcase;
+  const VIEWS = ["right", "front", "back"];
   const showcase = sc.items
     .map(
-      (p, i) => `<article class="case reveal" style="--i:${i}" tabindex="0" aria-label="${esc(p.name)} — ${esc(p.type)}">
+      (p, i) => `<article class="case reveal" style="--i:${i}" data-carousel aria-roledescription="carousel" aria-label="${esc(p.name)} — ${esc(p.type)}">
         <div class="case-art">
-          <img class="case-img case-a" src="/projects/${p.key}-hero.webp" alt="${esc(p.name)} — ${esc(p.type)}" width="640" height="800" loading="lazy">
-          <img class="case-img case-b" src="/projects/${p.key}-front.webp" alt="" width="640" height="800" loading="lazy">
+          ${VIEWS.map(
+            (v, k) =>
+              `<img class="case-img${k === 0 ? " is-active" : ""}" src="/projects/${p.key}-${v}.webp" alt="${esc(p.name)} — ${esc(sc.views[k])}" width="640" height="800" loading="lazy"${k === 0 ? "" : ' aria-hidden="true"'}>`,
+          ).join("")}
+          <button class="case-nav case-prev" type="button" aria-label="${esc(sc.prev)}">‹</button>
+          <button class="case-nav case-next" type="button" aria-label="${esc(sc.next)}">›</button>
+          <div class="case-dots">${VIEWS.map(
+            (_v, k) =>
+              `<button type="button" class="case-dot${k === 0 ? " is-active" : ""}" aria-label="${esc(sc.views[k])}" aria-current="${k === 0}"></button>`,
+          ).join("")}</div>
+          <span class="case-view" aria-live="polite">${esc(sc.views[0])}</span>
         </div>
         <div class="case-info">
           <h4>${esc(p.name)}</h4>

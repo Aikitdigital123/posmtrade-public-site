@@ -162,11 +162,49 @@ if (proj) {
   if (auto) requestAnimationFrame(loop);
 }
 
-// ---------- Delivered stands: tap or Enter shows the other view ----------
-document.querySelectorAll(".case").forEach((c) => {
-  const flip = () => c.classList.toggle("is-flipped");
-  c.addEventListener("click", flip);
-  c.addEventListener("keydown", (e) => (e.key === "Enter" || e.key === " ") && (e.preventDefault(), flip()));
+// ---------- Delivered stands: carousel of the 3D views (arrows, dots, swipe, auto-advance while visible) ----------
+const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+document.querySelectorAll("[data-carousel]").forEach((c) => {
+  const imgs = [...c.querySelectorAll(".case-img")];
+  const dots = [...c.querySelectorAll(".case-dot")];
+  const label = c.querySelector(".case-view");
+  let at = 0;
+  let timer = null;
+  const go = (k) => {
+    at = (k + imgs.length) % imgs.length;
+    imgs.forEach((im, j) => {
+      im.classList.toggle("is-active", j === at);
+      im.toggleAttribute("aria-hidden", j !== at);
+    });
+    dots.forEach((d, j) => {
+      d.classList.toggle("is-active", j === at);
+      d.setAttribute("aria-current", String(j === at));
+    });
+    if (label) label.textContent = dots[at]?.getAttribute("aria-label") || "";
+  };
+  const stop = () => {
+    clearInterval(timer);
+    timer = null;
+  };
+  const start = () => {
+    if (still || timer) return;
+    timer = setInterval(() => go(at + 1), 3500);
+  };
+  c.querySelector(".case-prev").addEventListener("click", () => (stop(), go(at - 1)));
+  c.querySelector(".case-next").addEventListener("click", () => (stop(), go(at + 1)));
+  dots.forEach((d, j) => d.addEventListener("click", () => (stop(), go(j))));
+  let x0 = null;
+  c.addEventListener("pointerdown", (e) => (x0 = e.clientX));
+  c.addEventListener("pointerup", (e) => {
+    if (x0 !== null && Math.abs(e.clientX - x0) > 40) (stop(), go(at + (e.clientX < x0 ? 1 : -1)));
+    x0 = null;
+  });
+  c.addEventListener("keydown", (e) => {
+    if (e.key === "ArrowRight") (stop(), go(at + 1));
+    if (e.key === "ArrowLeft") (stop(), go(at - 1));
+  });
+  c.addEventListener("mouseenter", stop);
+  new IntersectionObserver(([en]) => (en.isIntersecting ? start() : stop()), { threshold: 0.4 }).observe(c);
 });
 
 // ---------- Copy e-mail ----------
