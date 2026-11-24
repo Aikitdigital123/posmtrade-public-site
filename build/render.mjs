@@ -24,7 +24,7 @@ const variants = [
 const pageNames = ["index", "privacy", "terms"];
 
 // A one-letter word (в, з, і, v, s, a, …) never ends a line: it is glued to the next word.
-const nb = (s) => String(s).replace(/(?<=^|[\s(«„"])([A-Za-zА-Яа-яІіЇїЄєҐґ]) /gu, "$1\u00a0");
+const nb = (s) => String(s).replace(/(?<=^|[\s(«„">])([A-Za-zА-Яа-яІіЇїЄєҐґ]) /gu, "$1\u00a0");
 const esc = (s) =>
   nb(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
 // Fields that allow a little inline markup (<em>) are marked with html(); everything else is escaped.
