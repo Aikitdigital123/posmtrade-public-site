@@ -16,12 +16,14 @@
     "home": "Home",
     "privacy": "Privacy",
     "terms": "Terms",
-    "agents": "Automation"
+    "agents": "Automation",
+    "about": "About",
+    "faq": "FAQ"
   },
   "hero": {
     "eyebrow": "POS materials · cardboard displays · print",
     "title": "We make your product <em>stand out</em> on the shelf",
-    "lead": "We design and manufacture cardboard displays, stands and POS materials for retail — from the first idea and 3D mock-up to printing, assembly and delivery to the store.",
+    "lead": "We engineer and manufacture cardboard displays, stands and POS materials that sell — from the idea and 3D mock-up to print, assembly and delivery to the store. One partner all the way.",
     "ctaPrimary": "What we do",
     "ctaSecondary": "How we work",
     "apart": "Take apart",
@@ -149,7 +151,9 @@
           "type": "Floor display with topper",
           "size": "477 × 306 × 1575 mm",
           "shelves": "4 shelves",
-          "date": "June 2026"
+          "date": "June 2026",
+          "task": "A bold snack stand with 4 shelves and a shaped topper.",
+          "solution": "Double side walls, shelves built from several board layers for stiffness, a clear moisture tray."
         },
         {
           "key": "jacobs",
@@ -157,7 +161,9 @@
           "type": "Floor display with topper",
           "size": "620 × 253 × 1648 mm",
           "shelves": "4 shelves",
-          "date": "April 2025"
+          "date": "April 2025",
+          "task": "A floor stand for coffee with a premium look.",
+          "solution": "Side walls exactly at shelf width, multi-layer shelves, back printed on both sides."
         },
         {
           "key": "alpro",
@@ -165,13 +171,17 @@
           "type": "Floor display with topper",
           "size": "429 × 265 × 1772 mm",
           "shelves": "4 shelves",
-          "date": "April 2025"
+          "date": "April 2025",
+          "task": "A slim stand for plant-based drinks in a narrow aisle.",
+          "solution": "Full-width shelf-talkers, a die-cut shaped topper, back printed on both sides."
         }
       ],
       "labels": {
         "size": "Size",
         "shelves": "Shelves",
-        "date": "Year"
+        "date": "Year",
+        "task": "Brief",
+        "solution": "Solution"
       },
       "views": [
         "Side",
@@ -326,5 +336,75 @@
   "footer": {
     "rights": "© 2026 POSMTRADE",
     "tagline": "POS materials, displays and automation for retail."
+  },
+  "about": {
+    "eyebrow": "About us",
+    "title": "End-to-end POS production <em>under one roof</em>",
+    "intro": "POSMTRADE engineers and manufactures cardboard displays, stands and POS materials for brands and retail chains. Structural design, 3D mock-up, print, die-cutting, assembly and logistics work as one team — nothing gets lost between suppliers, and one partner answers for deadlines and quality.",
+    "items": [
+      {
+        "title": "Designed around your product",
+        "text": "We calculate parts, locks and loads for the weight and size of your product — the stand stays straight for the whole campaign."
+      },
+      {
+        "title": "3D before print",
+        "text": "You approve a realistic 3D model with your artwork — changes happen before production, not after."
+      },
+      {
+        "title": "In-house production",
+        "text": "Printing, lamination, die-cutting and assembly in our own production — no passing responsibility to subcontractors."
+      },
+      {
+        "title": "Every batch checked",
+        "text": "Before shipping we assemble and check a sample; the batch leaves in transport packaging with instructions."
+      },
+      {
+        "title": "Fast start",
+        "text": "We reply quickly and propose the first structure right at the start of the project."
+      },
+      {
+        "title": "Sustainable material",
+        "text": "Corrugated board is light and recyclable: after the campaign the display goes to recycling, not to landfill."
+      }
+    ]
+  },
+  "cta": {
+    "title": "Got a product that needs to stand out?",
+    "text": "Send a photo of the product, its size and quantity — we'll propose a structure, show it in 3D and quote the batch.",
+    "button": "Discuss a project"
+  },
+  "faq": {
+    "eyebrow": "FAQ",
+    "title": "What clients usually ask before ordering",
+    "items": [
+      {
+        "q": "How much does a display cost?",
+        "a": "It depends on the structure, print and quantity. Send the product, its size and quantity — we'll quote the batch."
+      },
+      {
+        "q": "What quantities do you make?",
+        "a": "We agree the run for your project — from a pilot batch to a chain-wide campaign."
+      },
+      {
+        "q": "How long does production take?",
+        "a": "It depends on the structure and quantity. We give the exact lead time with the quote — and keep it."
+      },
+      {
+        "q": "Can I see the display before print?",
+        "a": "Yes: we show a 3D mock-up with your artwork and, if needed, an assembled sample."
+      },
+      {
+        "q": "Who prepares the artwork?",
+        "a": "We work with your artwork or adapt it to the die-line, and check the files before print."
+      },
+      {
+        "q": "Will a shelf hold heavy products?",
+        "a": "We calculate the structure for the product weight and reinforce shelves with extra layers for heavy goods."
+      },
+      {
+        "q": "Do you deliver?",
+        "a": "Yes. We pack in transport packaging with assembly instructions and ship the batch with its documents."
+      }
+    ]
   }
 }

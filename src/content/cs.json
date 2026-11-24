@@ -16,12 +16,14 @@
     "home": "Úvod",
     "privacy": "Ochrana soukromí",
     "terms": "Podmínky",
-    "agents": "Automatizace"
+    "agents": "Automatizace",
+    "about": "O nás",
+    "faq": "Otázky a odpovědi"
   },
   "hero": {
     "eyebrow": "POS materiály · kartonové displeje · tisk",
     "title": "Váš produkt <em>na očích</em> v každé prodejně",
-    "lead": "Navrhujeme a vyrábíme kartonové displeje, stojany a POS materiály pro maloobchod — od prvního nápadu a 3D makety po tisk, kompletaci a doručení do prodejny.",
+    "lead": "Konstruujeme a vyrábíme kartonové displeje, stojany a POS materiály, které prodávají: od nápadu a 3D makety po tisk, kompletaci a doručení do prodejny — jeden partner na celou cestu.",
     "ctaPrimary": "Co děláme",
     "ctaSecondary": "Jak pracujeme",
     "apart": "Rozložit",
@@ -149,7 +151,9 @@
           "type": "Podlahový stojan s topperem",
           "size": "477 × 306 × 1575 mm",
           "shelves": "4 police",
-          "date": "červen 2026"
+          "date": "červen 2026",
+          "task": "Výrazný stojan na snacky se 4 policemi a tvarovaným topperem.",
+          "solution": "Dvojité bočnice, police z několika vrstev kartonu pro tuhost, průhledná podložka proti vlhkosti."
         },
         {
           "key": "jacobs",
@@ -157,7 +161,9 @@
           "type": "Podlahový stojan s topperem",
           "size": "620 × 253 × 1648 mm",
           "shelves": "4 police",
-          "date": "duben 2025"
+          "date": "duben 2025",
+          "task": "Podlahový stojan na kávu s prémiovým vzhledem.",
+          "solution": "Bočnice přesně na šířku police, vícevrstvé police, potisk zad z obou stran."
         },
         {
           "key": "alpro",
@@ -165,13 +171,17 @@
           "type": "Podlahový stojan s topperem",
           "size": "429 × 265 × 1772 mm",
           "shelves": "4 police",
-          "date": "duben 2025"
+          "date": "duben 2025",
+          "task": "Úzký stojan na rostlinné nápoje do stísněné uličky.",
+          "solution": "Police s lištou přes celou šířku, topper s tvarovaným výsekem, potisk zad z obou stran."
         }
       ],
       "labels": {
         "size": "Rozměry",
         "shelves": "Police",
-        "date": "Rok"
+        "date": "Rok",
+        "task": "Zadání",
+        "solution": "Řešení"
       },
       "views": [
         "Z boku",
@@ -326,5 +336,75 @@
   "footer": {
     "rights": "© 2026 POSMTRADE",
     "tagline": "POS materiály, displeje a automatizace pro maloobchod."
+  },
+  "about": {
+    "eyebrow": "O firmě",
+    "title": "Kompletní výroba POS materiálů <em>pod jednou střechou</em>",
+    "intro": "POSMTRADE konstruuje a vyrábí kartonové displeje, stojany a POS materiály pro značky a obchodní řetězce. Konstrukce, 3D maketa, tisk, výsek, kompletace i logistika fungují jako jeden tým — projekt se neztrácí mezi dodavateli a za termíny i kvalitu odpovídá jeden partner.",
+    "items": [
+      {
+        "title": "Konstrukce na míru výrobku",
+        "text": "Počítáme díly, zámky i zatížení podle hmotnosti a rozměrů zboží — stojan stojí rovně po celou dobu akce."
+      },
+      {
+        "title": "3D ještě před tiskem",
+        "text": "Schvalujete realistický 3D model s vlastní grafikou — úpravy děláme před výrobou, ne po ní."
+      },
+      {
+        "title": "Vlastní výroba",
+        "text": "Tisk, laminace, výsek i kompletace probíhají ve vlastní výrobě, bez přehazování odpovědnosti na subdodavatele."
+      },
+      {
+        "title": "Kontrola každé série",
+        "text": "Před expedicí sestavíme a zkontrolujeme vzorek; série odjíždí v přepravním obalu s návodem."
+      },
+      {
+        "title": "Rychlý start",
+        "text": "Na poptávku reagujeme rychle a první konstrukci navrhneme hned na začátku projektu."
+      },
+      {
+        "title": "Ekologický materiál",
+        "text": "Vlnitá lepenka je lehká a recyklovatelná: po akci jde displej do sběru, ne na skládku."
+      }
+    ]
+  },
+  "cta": {
+    "title": "Máte výrobek, který potřebuje vyniknout?",
+    "text": "Pošlete fotku výrobku, rozměry a počet kusů — navrhneme konstrukci, ukážeme 3D a spočítáme cenu.",
+    "button": "Probrat projekt"
+  },
+  "faq": {
+    "eyebrow": "Otázky a odpovědi",
+    "title": "Na co se obvykle ptáte před objednávkou",
+    "items": [
+      {
+        "q": "Kolik stojí displej?",
+        "a": "Cena závisí na konstrukci, tisku a nákladu. Pošlete výrobek, rozměry a počet — spočítáme cenu série."
+      },
+      {
+        "q": "Jaké náklady vyrábíte?",
+        "a": "Náklad domluvíme podle projektu — od pilotní série po kampaň pro celý řetězec."
+      },
+      {
+        "q": "Jak dlouho trvá výroba?",
+        "a": "Záleží na konstrukci a nákladu. Přesný termín sdělíme spolu s kalkulací — a dodržíme ho."
+      },
+      {
+        "q": "Můžu displej vidět před tiskem?",
+        "a": "Ano: ukážeme 3D maketu s vaší grafikou, v případě potřeby i sestavený vzorek."
+      },
+      {
+        "q": "Kdo připraví grafiku?",
+        "a": "Pracujeme s vaším podkladem nebo grafiku přizpůsobíme rozvinu; před tiskem soubory kontrolujeme."
+      },
+      {
+        "q": "Unese police těžké zboží?",
+        "a": "Konstrukci počítáme podle hmotnosti zboží; pro těžké výrobky police zesilujeme dalšími vrstvami."
+      },
+      {
+        "q": "Zajišťujete dopravu?",
+        "a": "Ano. Balíme do přepravního obalu s návodem ke kompletaci a sérii posíláme i s doklady."
+      }
+    ]
   }
 }

@@ -3190,3 +3190,208 @@ li {
 .legal-date {
   font-size: 0.9rem;
 }
+
+
+/* ---------- About: who we are + why us (2026-11-24) ---------- */
+.why-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  counter-reset: why;
+}
+
+.why-card {
+  position: relative;
+  padding: 30px 28px 28px;
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: inset 0 0 0 1px var(--line);
+  transition:
+    transform 0.4s var(--ease),
+    box-shadow 0.4s;
+}
+
+.why-card::after {
+  content: "";
+  position: absolute;
+  left: 28px;
+  right: 28px;
+  top: 0;
+  height: 3px;
+  border-radius: 0 0 3px 3px;
+  background: linear-gradient(90deg, var(--blue-bright), transparent);
+  transform: scaleX(0.25);
+  transform-origin: left;
+  transition: transform 0.6s var(--ease);
+}
+
+.why-card:hover {
+  transform: translateY(-4px);
+  box-shadow:
+    inset 0 0 0 1px var(--blue-bright),
+    var(--shadow);
+}
+
+.why-card:hover::after {
+  transform: scaleX(1);
+}
+
+.why-num {
+  display: block;
+  margin-bottom: 14px;
+  font: 800 2.2rem/1 var(--display);
+  color: transparent;
+  -webkit-text-stroke: 1.5px var(--blue-bright);
+}
+
+.why-card h3 {
+  margin: 0 0 8px;
+  font-size: 1.15rem;
+}
+
+.why-card p {
+  margin: 0;
+  color: var(--muted);
+}
+
+/* ---------- Case brief ---------- */
+.case-brief {
+  display: grid;
+  gap: 8px;
+  margin: 0 0 14px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: var(--blue-soft);
+}
+
+.case-brief p {
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.45;
+}
+
+.case-brief b {
+  display: block;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--blue-text);
+}
+
+/* ---------- FAQ ---------- */
+.faq-list {
+  display: grid;
+  gap: 10px;
+  max-width: 900px;
+}
+
+.faq-item {
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: inset 0 0 0 1px var(--line);
+  transition: box-shadow 0.3s;
+}
+
+.faq-item[open] {
+  box-shadow:
+    inset 0 0 0 1px var(--blue-bright),
+    var(--shadow);
+}
+
+.faq-item summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 20px 24px;
+  font-weight: 700;
+  font-size: 1.05rem;
+  cursor: pointer;
+  list-style: none;
+}
+
+.faq-item summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq-item summary i {
+  position: relative;
+  flex: none;
+  width: 22px;
+  height: 22px;
+}
+
+.faq-item summary i::before,
+.faq-item summary i::after {
+  content: "";
+  position: absolute;
+  left: 3px;
+  right: 3px;
+  top: 10px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--blue-bright);
+  transition: transform 0.3s var(--ease);
+}
+
+.faq-item summary i::after {
+  transform: rotate(90deg);
+}
+
+.faq-item[open] summary i::after {
+  transform: rotate(0deg);
+}
+
+.faq-item p {
+  margin: 0;
+  padding: 0 24px 22px;
+  color: var(--muted);
+}
+
+/* ---------- Call to action band ---------- */
+.cta-band {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: clamp(28px, 5vw, 52px);
+  border-radius: calc(var(--radius) * 1.4);
+  color: #fff;
+  background:
+    radial-gradient(circle at 85% 20%, rgba(44, 196, 244, 0.45), transparent 55%),
+    linear-gradient(135deg, #0b2540, #123c66);
+  box-shadow: var(--shadow);
+}
+
+.cta-band h2 {
+  margin: 0 0 8px;
+  font-size: clamp(1.5rem, 3vw, 2.2rem);
+  color: #fff;
+}
+
+.cta-band p {
+  margin: 0;
+  max-width: 620px;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+@media (max-width: 920px) {
+  .why-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .why-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .why-card,
+  .why-card::after,
+  .faq-item summary i::after {
+    transition: none;
+  }
+}

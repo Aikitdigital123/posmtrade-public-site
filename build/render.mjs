@@ -44,6 +44,7 @@ function langSwitch(lang, dir, page) {
 function header(c, lang, dir, page) {
   const home = page === "index" ? "" : "index.html";
   const links = [
+    ["about", c.nav.about],
     ["services", c.nav.services],
     ["projects", c.nav.projects],
     ["process", c.nav.process],
@@ -169,6 +170,24 @@ function home(c, lang) {
       </li>`,
     )
     .join("");
+  // About: who we are + why work with us (general, no machine names - owner 2026-11-24)
+  const why = c.about.items
+    .map(
+      (w, i) => `<article class="why-card reveal" style="--i:${i}">
+        <span class="why-num" aria-hidden="true">${String(i + 1).padStart(2, "0")}</span>
+        <h3>${esc(w.title)}</h3>
+        <p>${esc(w.text)}</p>
+      </article>`,
+    )
+    .join("");
+  const faq = c.faq.items
+    .map(
+      (f, i) => `<details class="faq-item reveal" style="--i:${i}">
+        <summary><span>${esc(f.q)}</span><i aria-hidden="true"></i></summary>
+        <p>${esc(f.a)}</p>
+      </details>`,
+    )
+    .join("");
   const points = c.mockup.points.map((p) => `<li>${esc(p)}</li>`).join("");
   const materials = c.materials.map((m) => `<span>${esc(m)}</span>`).join("");
   const auto = c.agents.points
@@ -213,6 +232,10 @@ function home(c, lang) {
         <div class="case-info">
           <h4>${esc(p.name)}</h4>
           <p>${esc(p.type)}</p>
+          <div class="case-brief">
+            <p><b>${esc(sc.labels.task)}</b>${esc(p.task)}</p>
+            <p><b>${esc(sc.labels.solution)}</b>${esc(p.solution)}</p>
+          </div>
           <dl>
             <div><dt>${esc(sc.labels.size)}</dt><dd>${esc(p.size)}</dd></div>
             <div><dt>${esc(sc.labels.shelves)}</dt><dd>${esc(p.shelves)}</dd></div>
@@ -310,6 +333,15 @@ function home(c, lang) {
 
     <section class="stats" aria-label="POSMTRADE">${stats}</section>
 
+    <section class="section about" id="about">
+      <div class="section-heading reveal">
+        <p class="eyebrow">${esc(c.about.eyebrow)}</p>
+        <h2 class="split">${words(c.about.title)}</h2>
+        <p class="section-intro">${esc(c.about.intro)}</p>
+      </div>
+      <div class="why-grid">${why}</div>
+    </section>
+
     <section class="section" id="services">
       <div class="section-heading reveal">
         <p class="eyebrow">${esc(c.services.eyebrow)}</p>
@@ -375,6 +407,21 @@ function home(c, lang) {
       <div class="auto-grid">${auto}</div>
       <p class="auto-note reveal">${esc(c.agents.dataNote)}
         <a href="privacy.html">${esc(c.agents.privacyLink)}</a> · <a href="terms.html">${esc(c.agents.termsLink)}</a></p>
+    </section>
+
+    <section class="section faq" id="faq">
+      <div class="section-heading reveal">
+        <p class="eyebrow">${esc(c.faq.eyebrow)}</p>
+        <h2 class="split">${words(c.faq.title)}</h2>
+      </div>
+      <div class="faq-list">${faq}</div>
+    </section>
+
+    <section class="section cta-band-wrap">
+      <div class="cta-band reveal">
+        <div><h2>${esc(c.cta.title)}</h2><p>${esc(c.cta.text)}</p></div>
+        <a class="button magnetic" href="#contact">${esc(c.cta.button)}<span class="arrow" aria-hidden="true">→</span></a>
+      </div>
     </section>
 
     <section class="section contact" id="contact">

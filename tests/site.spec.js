@@ -7,7 +7,7 @@ const LANGS = [
   { dir: "en/", lang: "en", menu: "Projects", copied: "Copied" },
 ];
 const PAGES = ["index.html", "privacy.html", "terms.html"];
-const SECTIONS = ["services", "projects", "process", "mockup", "agents", "contact"];
+const SECTIONS = ["about", "services", "projects", "process", "mockup", "agents", "contact"];
 
 // Collects page errors and console errors during a test.
 function watchErrors(page) {
@@ -262,6 +262,20 @@ test.describe("content rules", () => {
     await expect.poll(() => first.locator(".case-img.is-active").getAttribute("src")).not.toBe(before);
     await first.locator(".case-dot").nth(2).click();
     await expect(first.locator(".case-img.is-active")).toHaveAttribute("src", /-back\.webp$/);
+  });
+
+  test("about: who we are with six reasons, FAQ opens, call to action leads to contact", async ({ page }) => {
+    await page.goto("");
+    await expect(page.locator("#about .why-card")).toHaveCount(6);
+    await expect(page.locator(".site-header a[href='#about']").first()).toBeAttached();
+    const q = page.locator(".faq-item").first();
+    await q.scrollIntoViewIfNeeded();
+    await expect(q.locator("p")).toBeHidden();
+    await q.locator("summary").click();
+    await expect(q.locator("p")).toBeVisible();
+    await expect(page.locator(".faq-item")).toHaveCount(7);
+    await expect(page.locator(".cta-band a[href='#contact']")).toBeVisible();
+    await expect(page.locator(".case-brief").first()).toBeVisible();
   });
 
   test("legal pages name the operator (POSMTRADE) with a contact and a date", async ({ page }) => {
