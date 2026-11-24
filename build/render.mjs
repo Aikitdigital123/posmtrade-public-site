@@ -339,7 +339,32 @@ function home(c, lang) {
         <h2 class="split">${words(c.about.title)}</h2>
         <p class="section-intro">${esc(c.about.intro)}</p>
       </div>
-      <div class="why-grid">${why}</div>
+      <div class="why-grid bento">
+        <figure class="bento-photo reveal">
+          <img src="/projects/bobsnail-store.webp" alt="Bob Snail" width="800" height="1000" loading="lazy">
+          <figcaption>${esc(c.about.card)}</figcaption>
+        </figure>
+        ${why}
+        <a class="bento-cta reveal" href="#projects"><span>${esc(c.about.more)}</span><span class="arrow" aria-hidden="true">→</span></a>
+      </div>
+    </section>
+
+    <section class="showroom" id="showroom" data-showroom>
+      <div class="showroom-head reveal">
+        <p class="eyebrow">${esc(c.showroom.eyebrow)}</p>
+        <h2 class="split">${words(c.showroom.title)}</h2>
+        <p>${esc(c.showroom.text)}</p>
+      </div>
+      <div class="showroom-row">
+        ${c.projects.showcase.items
+          .map(
+            (p, i) => `<figure class="showroom-item" style="--i:${i}" data-speed="${[0.06, -0.05, 0.1][i % 3]}">
+          <img src="/projects/${p.key}-store.webp" alt="${esc(p.name)} — ${esc(p.type)}" width="800" height="1000" loading="lazy">
+          <figcaption><b>${esc(p.name)}</b><span>${esc(p.type)}</span></figcaption>
+        </figure>`,
+          )
+          .join("")}
+      </div>
     </section>
 
     <section class="section" id="services">

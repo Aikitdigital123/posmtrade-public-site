@@ -366,7 +366,9 @@
         "title": "Ekologický materiál",
         "text": "Vlnitá lepenka je lehká a recyklovatelná: po akci jde displej do sběru, ne na skládku."
       }
-    ]
+    ],
+    "more": "Prohlédnout projekty",
+    "card": "Více než 1 700 projektů pro značky a řetězce"
   },
   "cta": {
     "title": "Máte výrobek, který potřebuje vyniknout?",
@@ -406,5 +408,10 @@
         "a": "Ano. Balíme do přepravního obalu s návodem ke kompletaci a sérii posíláme i s doklady."
       }
     ]
+  },
+  "showroom": {
+    "eyebrow": "Showroom",
+    "title": "Takhle to vypadá <em>v prodejně</em>",
+    "text": "Vizualizace našich skutečných projektů v prodejně — ještě před výrobou vidíte výsledek, ne výkres."
   }
 }

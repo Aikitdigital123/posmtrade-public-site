@@ -311,3 +311,21 @@ if (!reduced && finePointer) {
 window.addEventListener("scroll", onScroll, { passive: true });
 window.addEventListener("resize", onScroll);
 onScroll();
+
+// ---------- Showroom: columns drift at different speeds while scrolling (parallax), none with reduced motion ----------
+{
+  const room = document.querySelector("[data-showroom]");
+  const items = room ? [...room.querySelectorAll("[data-speed]")] : [];
+  if (items.length && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    let ticking = false;
+    const update = () => {
+      ticking = false;
+      const r = room.getBoundingClientRect();
+      const t = (window.innerHeight - r.top) / (window.innerHeight + r.height); // 0 -> 1 through the viewport
+      if (t < -0.2 || t > 1.2) return;
+      for (const el of items) el.style.setProperty("--shift", `${((t - 0.5) * Number(el.dataset.speed) * 1000).toFixed(1)}px`);
+    };
+    window.addEventListener("scroll", () => ticking || ((ticking = true), requestAnimationFrame(update)), { passive: true });
+    update();
+  }
+}

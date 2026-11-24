@@ -366,7 +366,9 @@
         "title": "Sustainable material",
         "text": "Corrugated board is light and recyclable: after the campaign the display goes to recycling, not to landfill."
       }
-    ]
+    ],
+    "more": "See projects",
+    "card": "1,700+ projects for brands and retail chains"
   },
   "cta": {
     "title": "Got a product that needs to stand out?",
@@ -406,5 +408,10 @@
         "a": "Yes. We pack in transport packaging with assembly instructions and ship the batch with its documents."
       }
     ]
+  },
+  "showroom": {
+    "eyebrow": "Showroom",
+    "title": "This is how it looks <em>in store</em>",
+    "text": "Visualisations of our real projects on the shop floor — before production you see the result, not a drawing."
   }
 }
